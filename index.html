@@ -318,7 +318,7 @@ async function checkEnd(){updHud();if(st.over)return;
   const left=st.digs;for(let i=0;i<left;i++){st.digs--;const x=rnd(W),y=rnd(H);SFX.boom();shake=8;if(!calm()&&i%2===0)coinShower(12,(cv.getBoundingClientRect().left+(x+.5)*cs),(cv.getBoundingClientRect().top+(y+.5)*cs));st.cleared=(st.cleared||0)+5;const b=1.5*washMult();st.oz+=b;floater(x,y,'+'+b.toFixed(1),'#fff');burst(x,y,'#ffd34d',14,6);updHud();await sleep(140)}
   const frac=left/st.max;const stars=frac>=.4?3:frac>=.2?2:1;win(stars);busy=false}
  else if(st.digs<=0){st.over=true;SFX.lose();setTimeout(()=>lose(),500)}}
-async function win(stars){const tier=st.oz>=L.goals.oz*2||st.oz>=60?'MEGA WIN!':st.oz>=L.goals.oz*1.5?'HUGE WIN!':'BIG WIN!';busy=true;await jackpot(tier,st.oz,2600);busy=false;SFX.win();Music.sting();const prev=S.stars[L.id]||0;S.stars[L.id]=Math.max(prev,stars);S.oz+=st.oz;S.total+=st.oz;if(L.id+1>=S.unlocked)S.unlocked=Math.min(30,L.id+2);
+async function win(stars){const tier=st.oz>=L.goals.oz*2||st.oz>=60?'AMAZING DIG!':st.oz>=L.goals.oz*1.5?'GREAT DIG!':'NICE DIG!';busy=true;await jackpot(tier,st.oz,2600);busy=false;SFX.win();Music.sting();const prev=S.stars[L.id]||0;S.stars[L.id]=Math.max(prev,stars);S.oz+=st.oz;S.total+=st.oz;if(L.id+1>=S.unlocked)S.unlocked=Math.min(30,L.id+2);
  let rew='';if(stars===3&&prev<3){const ks=['dyn','det','plus'];const k=ks[rnd(3)];S.boost[k]++;rew=`<p>⭐ 3-star reward: <b>${BNAME[k]}</b></p>`}save();
  const nextLocked=L.id+1<30&&Math.floor((L.id+1)/10)>=S.claims;
  showOv(`<h2>Claim Cleared!</h2><div class="stars">${[1,2,3].map(i=>`<i class="${i<=stars?'on':''}">★</i>`).join('')}</div><p style="font-size:22px">🟡 <b>${st.oz.toFixed(1)} oz</b> washed out</p><p>Worth about <b>$${fmt(st.oz*goldPrice())}</b> at today's price</p>${rew}${nextLocked?'<p>🔒 Buy the next claim in <b>Operation</b> to keep going!</p>':''}
@@ -406,7 +406,7 @@ function fxFrame(t){requestAnimationFrame(fxFrame);fxSize();const w=fxW,h=fxH,fr
  fx.globalAlpha=1}
 requestAnimationFrame(fxFrame);
 onTap($('musB'),()=>Music.setOn(S.music===false));onTap($('musB2'),()=>Music.setOn(S.music===false));Music.setOn(S.music!==false);
-onTap($('calmB'),()=>{setCalm(!calm());toast(calm()?'Reduced flashing ON':'Full Vegas lights ON')});
+onTap($('calmB'),()=>{setCalm(!calm());toast(calm()?'Reduced flashing ON':'Full sparkle ON')});
 // board taps
 (function(){const c=$('cv');const h=e=>{const now=Date.now();if(now-lastTap<250)return;lastTap=now;audioInit();let X,Y;if(e.changedTouches&&e.changedTouches[0]){X=e.changedTouches[0].clientX;Y=e.changedTouches[0].clientY}else{X=e.clientX;Y=e.clientY}
  const r=c.getBoundingClientRect();const x=Math.floor((X-r.left)/(r.width/W)),y=Math.floor((Y-r.top)/(r.height/H));if(x>=0&&y>=0&&x<W&&y<H)tapCell(x,y).catch(err=>{console.error(err);busy=false})};
@@ -429,7 +429,7 @@ function showOps(){idleTick(false);show('sOps');topBar();const p=goldPrice(),p0=
  <h3>🔧 Equipment</h3>`;
  for(const k in UPG){const u=UPG[k],mx=S.up[k]>=u.max;h+=`<div class="row"><div>${u.ic} <b>${u.n}</b> Lv ${S.up[k]}<small>${u.d}</small></div><button class="btn s" data-buy="${k}" ${mx?'disabled':''}>${mx?'MAX':'$'+fmt(upCost(k))}</button></div>`}
  h+=`<h3>🗺 Claims</h3>`;CHAPTERS.forEach((C,i)=>{h+=`<div class="row"><div>${C.icon} <b>${C.name}</b><small>Levels ${i*10+1}-${i*10+10}</small></div>${i<S.claims?'<span>✔ Owned</span>':'<span>🔒 Beat level '+(i*10)+'</span>'}</div>`});
- h+=`<p style="opacity:.6;font-size:12px;text-align:center">Total gold mined: ${S.total.toFixed(1)} oz</p>`;$('opsBody').innerHTML=h;
+ h+=`<p style="opacity:.6;font-size:12px;text-align:center">Total gold mined: ${S.total.toFixed(1)} oz</p><p style="text-align:center"><button class="btn s" id="aboutB">ℹ️ About &amp; Privacy</button></p>`;$('opsBody').innerHTML=h;onTap($('aboutB'),()=>window.openAbout());
  const sell=f=>{const oz=S.oz*f;if(oz<.05){toast('No gold to sell. Go dig!');return}S.cash+=oz*goldPrice();S.oz-=oz;SFX.coin(4);toast(`Sold ${oz.toFixed(1)} oz for $${fmt(oz*p)}`);save();showOps()};
  onTap($('sellH'),()=>sell(.5));onTap($('sellA'),()=>sell(1));
  document.querySelectorAll('[data-buy]').forEach(b=>onTap(b,()=>{const k=b.dataset.buy;let c=k==='crew'?crewCost():k==='claim'?CHAPTERS[S.claims].cost:upCost(k);if(k!=='crew'&&k!=='claim'&&S.up[k]>=UPG[k].max)return;
@@ -634,6 +634,9 @@ function openShop(){let h=`<h2>🛒 Gold Shop</h2><p>You have <b>🟡 ${S.oz.toF
  <div class="stick"><button class="btn g" id="shClose">Close</button></div>`;
  showOv(h,()=>{onTap($('shClose'),()=>{hideOv();showMap()});onTap($('shGear'),()=>window.openGear(null));onTap($('shSal'),()=>window.openSaloon?window.openSaloon():showMap())});coach('shop',[{el:'#ovCard',t:'The <b>Shop</b> shows every free way to earn gold, and where to spend it.'}])}
 window.openShop=openShop;
+// ---- About & Privacy (in-app copy of the privacy policy; plain text, no external links) ----
+function openAbout(){showOv(`<h2>ℹ️ About</h2><p><b>Gold Fever Frenzy</b><br>Made by Brett Johnson</p><div class="teaser" style="text-align:left;font-size:14px"><b>Privacy</b><br>This game does not collect, store, or share any personal information. There is no account or sign-in, and no ads, analytics, or tracking. Your progress is saved only on this device and never leaves it. Deleting the app deletes it. The game works fully offline.</div><p style="font-size:13px;opacity:.8">Questions or help: brettjohnson901@gmail.com</p><p style="font-size:12px;opacity:.7">Prospector voice made with Chatterbox AI text-to-speech. Music, sounds, and art made for this game.</p><div class="stick"><button class="btn g" id="abX">Close</button></div>`,()=>onTap($('abX'),hideOv))}
+window.openAbout=openAbout;
 // ---- Power Pick ----
 const shape=l=>l>=4?[[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]:l===3?[[0,0],[1,0],[-1,0],[0,1],[0,-1]]:l===2?[[0,-1],[0,0],[0,1]]:[[0,0],[0,1]];
 let pickArmed=false;window.__pickArmed=()=>pickArmed;
@@ -738,8 +741,20 @@ window.VOICE_DATA={close2:"SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYxLjcuMTAzAAAAAAAAA
 let lastSay=0;const LINES={'Gold Fever!':'fever','Mother Lode!':'mother','EUREKA!!':'eureka','MOTHER LODE FINALE!':'mother','GOLD RUSH!':'rush','GOLD RUSH MEGA!':'rush','DOUBLE DYNAMITE!':'fire','KABOOM!':'fire','CROSS STRIKE!':'strike','MEGA STRIKE!':'smokes','PICK STRIKE!':'strike','Big Nugget!':'nugget','ON FIRE':'beauty'};
 const TEXT={eureka:'Eureka!',mother:'Mother lode, eh!',fever:'Gold fever!',fire:'Fire in the hole!',beauty:'Beauty, eh!',nugget:"Holy jumpin', that's a nugget!",hoser:'Ya hoser, ya did it!',keep:"Keep diggin', bud!",rush:'Gold rush!',strike:"Now that's a strike!",smokes:'Holy smokes!',win1:'Well done, partner!',win2:'You struck it rich, bud!',win3:'What a dig, eh!',close1:'So close, eh!',close2:'Ya almost had her!',intro:"Well howdy there, prospector! Ha ha! Grab yer pick, and let's go find us some gold, eh? Yeehaw!",build:"Now we're buildin' a town!"};
 const vbuf={};let vsrc=null;
-function vload(k){if(vbuf[k]||!AC)return vbuf[k];const b=atob(VOICE_DATA[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);vbuf[k]=AC.decodeAudioData(u.buffer).catch(e=>{vbuf[k]=null;throw e});return vbuf[k]}
-function speakFallback(t){if(!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance(t);u.rate=.95;u.pitch=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+// Prospector voice speed. 0.88 = about 12% slower. Web Audio playbackRate would also lower the pitch, so clips are time-stretched once on decode (WSOLA), which keeps the voice's pitch.
+const VOICE_RATE=0.88;
+function vStretchCh(chs,sr,rate){const N=Math.round(sr*.03)&~1,Hs=N>>1,Ha=Hs*rate,tol=Math.round(sr*.008),inL=chs[0].length,outL=Math.ceil(inL/rate)+N;
+ const win=new Float32Array(N);for(let i=0;i<N;i++)win[i]=.5-.5*Math.cos(2*Math.PI*i/N);
+ const mono=chs.length>1?chs[0].map((v,i)=>(v+chs[1][i])/2):chs[0];const out=chs.map(()=>new Float32Array(outL)),norm=new Float32Array(outL);
+ let prev=0;const at=(a,i)=>i>=0&&i<inL?a[i]:0;
+ for(let k=0;;k++){const nom=Math.round(k*Ha),op=k*Hs;if(nom>=inL||op+N>outL)break;let best=nom;
+  if(k>0){const nat=prev+Hs;let bc=-Infinity;for(let d=-tol;d<=tol;d+=2){const p=nom+d;let c=0;for(let i=0;i<N;i+=4)c+=at(mono,nat+i)*at(mono,p+i);if(c>bc){bc=c;best=p}}}
+  for(let ch=0;ch<chs.length;ch++){const a=chs[ch],o=out[ch];for(let i=0;i<N;i++)o[op+i]+=at(a,best+i)*win[i]}
+  for(let i=0;i<N;i++)norm[op+i]+=win[i];prev=best}
+ const L=Math.ceil(inL/rate);for(const o of out)for(let i=0;i<L;i++)if(norm[i]>1e-3)o[i]/=norm[i];return out.map(o=>o.subarray(0,L))}
+function vSlow(buf){if(VOICE_RATE===1)return buf;try{const chs=[];for(let c=0;c<buf.numberOfChannels;c++)chs.push(buf.getChannelData(c));const o=vStretchCh(chs,buf.sampleRate,VOICE_RATE),nb=AC.createBuffer(o.length,o[0].length,buf.sampleRate);o.forEach((d,c)=>nb.getChannelData(c).set(d));return nb}catch(e){return buf}}
+function vload(k){if(vbuf[k]||!AC)return vbuf[k];const b=atob(VOICE_DATA[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);vbuf[k]=AC.decodeAudioData(u.buffer).then(vSlow).catch(e=>{vbuf[k]=null;throw e});return vbuf[k]}
+function speakFallback(t){if(!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance(t);u.rate=.95*VOICE_RATE;u.pitch=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function voice(k,force){if(S.voice===false||window.SIM||!VOICE_DATA[k])return;const n=Date.now();if(!force&&n-lastSay<1800)return;lastSay=n;
  try{audioInit();if(!AC)throw 0;if(AC.state==='suspended')AC.resume();vload(k).then(buf=>{if(S.voice===false)return;try{if(vsrc)vsrc.stop()}catch(e){}const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=1.1;s.buffer=buf;s.connect(g);g.connect(AC.destination);s.start();vsrc=s}).catch(()=>speakFallback(TEXT[k]))}catch(e){speakFallback(TEXT[k])}}
 window.__vsrcStop=()=>{if(vsrc)vsrc.stop()};window.voice=voice;function say(k){voice(k)}
@@ -847,6 +862,118 @@ const c2=document.createElement('style');c2.textContent='.tw2 .btn{font-size:13p
 
 
 
+<script>
+// ---- Gold Facts: a skippable fun-fact card every 5 wins (first clears of levels 5,10,15... always count). Sources: facts-sources.md in the repo root (not shipped). ----
+(function(){
+const FACTS=[["🍳","Panning works because gold is super heavy. When you swirl a pan in water, light sand washes away and the gold sinks to the bottom."],
+["⚖️","Gold is about 19 times heavier than the same amount of water. A bucket full of gold would be far too heavy for a grown-up to lift!"],
+["🧒","The first gold nugget found in the United States was spotted by 12-year-old Conrad Reed in a North Carolina creek in 1799. His family used the 17-pound nugget as a doorstop for years!"],
+["🪚","James Marshall found shiny flakes in the water at Sutter's Mill in Coloma, California, in January 1848. That discovery started the California Gold Rush."],
+["🏈","Gold seekers who rushed to California in 1849 were nicknamed the \"Forty-Niners.\" The San Francisco 49ers football team is named after them."],
+["⭐","The California Gold Rush brought so many people west that California became a state in 1850, just two years after gold was found."],
+["🌟","California's state motto is \"Eureka!\" It means \"I have found it!\" and it's tied to the excitement of the Gold Rush."],
+["👖","Levi Strauss sold supplies to miners in San Francisco. In 1873 he and tailor Jacob Davis patented work pants with metal rivets: the first blue jeans!"],
+["⛵","So many sailors ran off to the gold fields that ships were left empty in San Francisco Bay. Some were turned into stores, hotels, and even a jail."],
+["🛒","Lots of Gold Rush miners never got rich. Many of the people who did best were the ones selling shovels, food, and clothes to the miners."],
+["🏔️","In August 1896, gold was found on Bonanza Creek in Canada's Yukon. That find started the Klondike Gold Rush."],
+["🚢","In July 1897, a steamship reached Seattle carrying Klondike miners and their gold. Newspapers shouted about a \"ton of gold,\" and the stampede north began."],
+["🎒","Canada's Mounted Police made every Klondike gold seeker bring about a year's worth of food and supplies, often around a ton of gear!"],
+["🪜","To reach the Klondike, many stampeders climbed the steep, snowy Chilkoot Pass. Steps cut into the ice were called the \"Golden Stairs.\""],
+["🔁","Stampeders couldn't carry a ton of gear at once, so they hauled it up the Chilkoot Pass a load at a time, making many trips."],
+["🏘️","Dawson City sprang up almost overnight where the Klondike River meets the Yukon River, full of miners, shops, and dance halls."],
+["🍞","Experienced northern miners were called \"sourdoughs\" because they carried sourdough starter to bake bread. Newcomers were called \"cheechakos.\""],
+["🏖️","In 1899, gold was found on the beaches of Nome, Alaska. Miners could scoop gold right out of the beach sand!"],
+["🥇","The biggest gold nugget ever found, the \"Welcome Stranger,\" was dug up in Australia in 1869. It was buried just a few inches deep, near the roots of a tree!"],
+["🏋️","The Welcome Stranger nugget was so big that no scale in town could weigh it, so it was broken into pieces on a blacksmith's anvil."],
+["🔍","The \"Hand of Faith\" nugget was found in Australia in 1980 with a metal detector. Today it's on display in Las Vegas."],
+["🦘","Australia had its own gold rush too. It began in 1851 and brought people from all over the world to Victoria and New South Wales."],
+["🏛️","Georgia had one of America's first big gold rushes, in 1829 near Dahlonega. The U.S. government even built a mint there to turn the gold into coins."],
+["🏔️","\"Pikes Peak or Bust!\" was painted on wagons during the Colorado Gold Rush of 1858 and 1859. That rush helped start the city of Denver."],
+["🏛️","Colorado's State Capitol dome is covered in real gold leaf, first added in 1908 with gold given by Colorado miners."],
+["🦬","Gold found in the Black Hills of South Dakota in 1874 sparked a rush and gave rise to the wild mining town of Deadwood."],
+["🌊","Most nuggets come from \"placer\" gold: bits of gold that wear out of rock, wash down streams, and settle in creek beds."],
+["⛰️","A \"lode\" is a vein of gold inside solid rock. The \"Mother Lode\" is a long belt of gold country in California's Sierra Nevada foothills."],
+["💰","\"Pay dirt\" is dirt with enough gold in it to be worth digging. Today people say \"we hit pay dirt\" when something pays off big."],
+["🪵","Miners used a \"rocker\" or \"cradle,\" a wooden box they rocked like a baby's cradle, to wash gravel and catch the gold."],
+["🚿","A sluice box is a long wooden chute. Water washes gravel down it, and little bumps called riffles catch the heavy gold."],
+["💦","Some miners blasted whole hillsides with giant water cannons. California stopped most of it in 1884 because the mud was flooding farms and rivers."],
+["🤨","Pyrite is nicknamed \"fool's gold.\" Real gold is soft and bends, but pyrite is hard and brittle and will crumble or break."],
+["✨","Gold never rusts or tarnishes. Gold coins pulled from old shipwrecks can still shine like new."],
+["🍃","Gold can be hammered so thin that light shines through it. Gold leaf is many times thinner than a human hair."],
+["🧪","Gold's chemical symbol is Au, from the Latin word \"aurum.\""],
+["💍","Pure gold is called 24 karat. Because pure gold is so soft, jewelry is often mixed with other metals to make it tougher, like 14 or 18 karat."],
+["🔥","Gold melts at about 1,064°C (1,947°F). That's hot enough to glow bright orange!"],
+["📱","Gold carries electricity well and never corrodes, so tiny bits of it are inside phones and computers."],
+["👨‍🚀","Astronaut helmet visors have a super-thin layer of gold that helps block the Sun's glare and heat."],
+["🏅","Olympic gold medals are mostly silver! They're covered in a coating of real gold."],
+["🧁","Gold leaf is safe to eat in tiny amounts. Fancy chefs sprinkle it on cakes and desserts for sparkle."],
+["🌊","There's gold dissolved in seawater, but it's spread out so thin that nobody has found a way to collect it that's worth the cost."],
+["⚖️","Gold is weighed in \"troy ounces.\" A troy ounce is a little heavier than a regular kitchen ounce."],
+["🟡","Gold is one of the very few metals that's naturally yellow. Most metals are silvery gray."],
+["🏺","King Tutankhamun of ancient Egypt was buried in a coffin made of solid gold. His tomb was found in 1922, and the gold still shines after more than 3,000 years."],
+["🏦","Fort Knox in Kentucky is a famous vault that stores a big part of the United States' gold."],
+["🐻","California's nickname is \"The Golden State,\" partly because of its Gold Rush history."]];
+window.GOLD_FACTS=FACTS;
+const F=()=>{if(!S.facts||typeof S.facts!=='object')S.facts={n:0,seen:[],keys:{},pend:[]};const f=S.facts;f.seen=f.seen||[];f.keys=f.keys||{};f.pend=f.pend||[];f.n=f.n||0;return f};
+const css=document.createElement('style');css.textContent=`
+#factOv{z-index:25}#factOv .card{max-width:360px;width:calc(100% - 28px);max-height:calc(100% - 20px);overflow:auto;text-align:center;border:3px solid #ffd34d;box-shadow:0 0 0 3px #8a5a08,0 0 30px #ffb000aa;background:radial-gradient(circle at 50% 0,#6b4a12,#2a1a0e 70%);position:relative}
+#factOv h2{margin:4px 0 2px;font-size:30px;color:#ffd34d;text-shadow:0 2px 0 #8a5a08,0 0 14px #ffb000;letter-spacing:1px}
+#factOv .fIc{font-size:54px;line-height:1.1;margin:6px 0 2px}
+#factOv .fTx{font-size:18px;line-height:1.4;margin:8px 4px 12px;color:#fff6dc}
+#factOv .fN{font-size:12px;opacity:.75;margin-bottom:8px}
+#factOv .fGo{font-size:21px;padding:14px 30px;min-width:70%}
+#factOv .fRow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+#factOv .fLink{background:none;border:none;color:#ffd34d;text-decoration:underline;font-size:14px;margin-top:10px;cursor:pointer}
+#factOv .fList{text-align:left;margin:8px 0;display:flex;flex-direction:column;gap:8px}
+#factOv .fItem{background:#0004;border:1px solid #ffd34d55;border-radius:12px;padding:8px 10px;font-size:15px;line-height:1.35;display:flex;gap:8px}
+#factOv .fItem i{font-style:normal;font-size:24px}
+#factOv.pop .card{animation:fPop .45s cubic-bezier(.2,1.6,.4,1)}
+#factOv.pop h2{animation:fGlow 1.6s ease-in-out infinite alternate}
+@keyframes fPop{from{transform:scale(.4) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes fGlow{from{text-shadow:0 2px 0 #8a5a08,0 0 6px #ffb000}to{text-shadow:0 2px 0 #8a5a08,0 0 22px #ffe08a}}
+@media (orientation:landscape) and (max-height:500px){#factOv .card{max-width:560px}#factOv h2{font-size:24px}#factOv .fIc{font-size:38px;margin:0}#factOv .fTx{font-size:17px;margin:4px 4px 8px}#factOv .fGo{padding:10px 26px;font-size:19px}}
+`;document.head.appendChild(css);
+const ov=document.createElement('div');ov.className='ov';ov.id='factOv';ov.innerHTML='<div class="card" id="factCard"></div>';$('ov').after(ov);
+const close=()=>{ov.classList.remove('on','pop');showing=false;const a=after;after=null;if(a)a()};
+let showing=false,winT=0,after=null;
+let openedAt=0;new MutationObserver(()=>{if(ov.classList.contains('on'))openedAt=openedAt||Date.now();else openedAt=0}).observe(ov,{attributes:true,attributeFilter:['class']});
+ov.addEventListener('click',e=>{if(e.target===ov&&Date.now()-openedAt>600)close()});
+// claim the next fact in order; cycles without repeats until all are seen
+function due(key){const f=F();if(f.keys[key])return;const i=f.n%FACTS.length;f.n++;f.keys[key]=1;if(!f.seen.includes(i))f.seen.push(i);f.pend.push(i);save()}
+function quiet(){const c=document.getElementById('coach');return (c&&c.classList.contains('on'))||busy||showing}
+function canShow(){if(quiet())return false;const ovOn=$('ov').classList.contains('on');if(ovOn)return /Claim Cleared|Level Cleared|Great Dig|Perfect Dig|in a row/.test($('ovCard').innerHTML)&&!!$('mapB2');return $('sMap').classList.contains('on')}
+function card(i){const f=F();showing=true;const fc=$('factCard');fc.scrollTop=0;
+ fc.innerHTML=`<h2>✨ Gold Fact! ✨</h2><div class="fIc">${FACTS[i][0]}</div><div class="fTx">${FACTS[i][1]}</div><div class="fN">Fact ${f.seen.indexOf(i)+1} of ${FACTS.length} found</div><div class="fRow"><button class="btn g fGo" id="factGo">Cool! Continue ▶</button></div><button class="fLink" id="factAll">📜 See all my facts</button>`;
+ ov.classList.add('on');if(!calm())ov.classList.add('pop');try{SFX.coin(3)}catch(e){}try{hap('Light')}catch(e){}
+ onTap($('factGo'),close);onTap($('factAll'),book);
+ // play a pre-recorded exclamation only once the win line is done (never cut it off)
+ const wait=Math.max(400,winT+3400-Date.now());setTimeout(()=>{if(showing&&ov.classList.contains('on')&&$('factGo'))voice('eureka',true)},wait)}
+function tryShow(delay){clearTimeout(tryShow.t);tryShow.t=setTimeout(()=>{const f=F();if(!f.pend.length)return;if(!canShow()){if(--tryShow.left>0)tryShow(1000);return}const i=f.pend.shift();save();card(i)},delay)}
+tryShow.left=0;
+function book(){const f=F();showing=true;const fc=$('factCard');fc.scrollTop=0;const left=FACTS.length-f.seen.length;
+ fc.innerHTML=`<h2>📜 My Gold Facts</h2><div class="fN">${f.seen.length} of ${FACTS.length} found${left?` · a new one every 5 wins!`:' · you found them all!'}</div>
+ <div class="fList">${f.seen.length?f.seen.map(i=>`<div class="fItem"><i>${FACTS[i][0]}</i><span>${FACTS[i][1]}</span></div>`).join(''):'<div class="fItem"><i>🔒</i><span>No facts yet. Win 5 levels to find your first Gold Fact!</span></div>'}
+ ${left?`<div class="fItem" style="opacity:.6"><i>🔒</i><span>${left} more fact${left>1?'s':''} to find</span></div>`:''}</div>
+ <div class="fRow"><button class="btn g fGo" id="factGo">Close</button></div>`;ov.classList.add('on');onTap($('factGo'),close)}
+window.openFacts=book;
+// if the player taps Next before the card pops up, show the fact first, then carry on to the next level
+let swallow=0;
+['pointerup','touchend','click'].forEach(ev=>document.addEventListener(ev,e=>{const b=e.target&&e.target.closest&&e.target.closest('#nextB');if(!b)return;
+ if(Date.now()<swallow){e.stopImmediatePropagation();if(e.cancelable)e.preventDefault();return}
+ const f=F();if(!f.pend.length||!canShow())return;e.stopImmediatePropagation();if(e.cancelable)e.preventDefault();swallow=Date.now()+450;clearTimeout(tryShow.t);
+ const i=f.pend.shift();save();after=()=>setTimeout(()=>{if($('nextB'))$('nextB').click()},320);card(i)},true));
+// after each win: count wins, decide if a fact is due, then show it over the win card (or on the map later)
+const _fw=win;win=async function(x){const lid=L&&L.id,first=!S.stars[lid];await _fw(x);winT=Date.now();try{const f=F();f.w=(f.w||0)+1;
+  if(first&&(lid+1)%5===0)due('L'+(lid+1));else if(f.w%5===0)due('W'+f.w);save();
+  if(f.pend.length){tryShow.left=8;tryShow(900)}}catch(e){}};
+// leftover facts (player tapped Next fast) wait for the map
+const _sm=showMap;showMap=function(){_sm.apply(this,arguments);if(F().pend.length){tryShow.left=30;tryShow(900)}};
+// map: Facts tab next to Play / Operation
+const tabs=document.querySelector('#sMap .tabs');if(tabs&&!$('factsB')){const b=document.createElement('button');b.className='btn';b.id='factsB';b.textContent='📜 Facts';b.style.flex='.7';tabs.appendChild(b);onTap(b,book)}
+// hide if a level starts underneath
+const _sl=startLevel;startLevel=function(){after=null;close();return _sl.apply(this,arguments)};
+})();
+</script>
 <script>(function(){let wasRunning=false;function pause(){try{if(typeof AC!=='undefined'&&AC&&AC.state==='running'){wasRunning=true;AC.suspend()}}catch(e){}}
 function resume(){try{if(wasRunning&&AC&&AC.state!=='running')AC.resume();wasRunning=false}catch(e){}}
 document.addEventListener('visibilitychange',()=>document.hidden?pause():resume());window.addEventListener('pagehide',pause);window.addEventListener('pageshow',resume);window.addEventListener('blur',pause);window.addEventListener('focus',resume)})();</script></body></html>
