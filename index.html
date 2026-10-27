@@ -449,7 +449,7 @@ window.__game={get L(){return L},jackpot,coinShower,motherLode,get B(){return B}
 const todayKey=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
 const dayNum=k=>{const[a,b,c]=k.split('-').map(Number);return Math.round(new Date(a,b-1,c).getTime()/864e5)};
 S.streak=S.streak||0;S.bestStreak=S.bestStreak||0;S.town=S.town||1;S.starSpent=S.starSpent||0;S.chests=S.chests||{};S.daily=S.daily||{last:'',day:0};
-const TOWN=[['⛺','Miner\'s Tent',0],['🔥','Campfire',2],['🪵','Sluice Box',3],['🏪','General Store',4],['🍺','Saloon',5],['🏦','Bank',6],['🏨','Hotel',7],['🚂','Rail Depot',8],['⛪','Chapel',9],['🎭','Opera House',10]];
+const TOWN=[['⛺','Miner\'s Tent',0],['🔥','Campfire',2],['🪵','Sluice Box',3],['🏪','General Store',4],['🥤','Root Beer Saloon',5],['🏦','Bank',6],['🏨','Hotel',7],['🚂','Rail Depot',8],['⛪','Chapel',9],['🎭','Opera House',10]];
 const starsTotal=()=>Object.values(S.stars).reduce((a,b)=>a+b,0),starsFree=()=>starsTotal()-S.starSpent;
 const nextB=()=>window.TownNext?TownNext():null;
 const streakDigs=n=>n>=5?2:n>=2?1:0;
@@ -534,11 +534,12 @@ if(!S.bld){const refund=S.starSpent||0;S.bld={};S.starSpent=0;if(refund>0)S._ref
 S.gear=Object.assign({dyn:1,sluice:1,det:0,hyd:0,exc:0},S.gear||{});S.loadout=S.loadout||'dyn';S.coach=S.coach||{};save();
 const sFree=()=>Object.values(S.stars).reduce((a,b)=>a+b,0)-S.starSpent;
 // ---- buildings ----
+window.RB_MUG=`<svg class="rbmug" viewBox="0 0 64 64" role="img" aria-label="Root beer mug"><title>Root Beer</title><path d="M47 22h5a8 8 0 0 1 8 8v10a8 8 0 0 1-8 8h-5v-6h5a2 2 0 0 0 2-2V30a2 2 0 0 0-2-2h-5z" fill="#d9e6ee" stroke="#6b4a2a" stroke-width="2"/><rect x="9" y="16" width="40" height="42" rx="6" fill="#d9e6ee" stroke="#6b4a2a" stroke-width="2.5"/><rect x="12" y="22" width="34" height="33" rx="4" fill="#5a2a0e"/><path d="M8 18c0-7 6-10 11-8 2-5 10-6 13-1 4-4 12-2 13 4 5 0 6 6 2 8H9c-2 0-2-2-1-3z" fill="#fff4dc" stroke="#c9a46a" stroke-width="1.5"/><rect x="11" y="31" width="36" height="13" rx="2" fill="#ffd34d" stroke="#6b4a2a" stroke-width="1.2"/><text x="29" y="36.6" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="5.6" fill="#5a2a0e">ROOT</text><text x="29" y="42.6" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="5.6" fill="#5a2a0e">BEER</text></svg>`;
 const BLD={
  smith:{ic:'⚒',n:'Blacksmith',cost:[3,5,8,12],perk:l=>['Unlocks the ⛏ Power Pick','Power Pick clears 2 blocks','clears a 3-block line','clears a plus (5 blocks)','clears a 3×3 square'][l]+(l?` · ${pickCharges(l)} uses per level`:''),
   short:l=>l?`Power Pick Lv${l}`:''},
  assay:{ic:'⚖',n:'Assay Office',cost:[2,4,7],perk:l=>`+${l*7}% gold value from every nugget`},
- saloon:{ic:'🍺',n:'Saloon',cost:[3,6,9],perk:l=>`+${l} starting dig${l>1?'s':''} every level`},
+ saloon:{ic:'🥤',n:'Root Beer Saloon',cost:[3,6,9],perk:l=>`+${l} starting dig${l>1?'s':''} every level`},
  bank:{ic:'🏦',n:'Bank',cost:[3,6,9],perk:l=>`Interest: +${l*2}% of your saved gold after each win (max ${l*5} oz)`},
  store:{ic:'🏪',n:'General Store',cost:[2,4,6],perk:l=>`Gear upgrades ${l*15}% cheaper`},
  depot:{ic:'🚂',n:'Rail Depot',cost:[4,8],perk:l=>`Your gear works ${l*25}% harder`}};
@@ -627,9 +628,9 @@ window.IAP_ENABLED=false;window.ADS_ENABLED=false;
 const PACKS=[['💰','Prospector Pack','$0.99','50 oz of gold + 2 Dynamite'],['🧰','Gear Crate','$2.99','1 gear tier of your choice + 100 oz'],['⛏','Pick Bundle','$4.99','5 Dynamite, 5 Gold Detectors, 5 +5 Digs'],['👑','Mother Lode','$9.99','600 oz of gold + 10 of every booster']];
 function openShop(){let h=`<h2>🛒 Gold Shop</h2><p>You have <b>🟡 ${S.oz.toFixed(1)} oz</b>.</p>`;
  if(window.IAP_ENABLED){PACKS.forEach(p=>h+=`<div class="brow"><div class="ic">${p[0]}</div><div class="tx"><b>${p[1]}</b><br>Exactly: ${p[3]}</div><button class="btn shopbtn">${p[2]}</button></div>`);h+=`<p style="font-size:11px;opacity:.7">Every pack shows its exact contents. No random paid rewards.</p>`}
- h+=`<div class="teaser" style="text-align:left"><b>Free ways to earn gold:</b><br>⛏ Play levels (every win pays gold)<br>📅 Collect your Daily Gold on the map<br>🍺 Free Saloon plays every day<br>🎁 Open chests every 5 levels</div>
+ h+=`<div class="teaser" style="text-align:left"><b>Free ways to earn gold:</b><br>⛏ Play levels (every win pays gold)<br>📅 Collect your Daily Gold on the map<br>🥤 Free plays at the Root Beer Saloon every day<br>🎁 Open chests every 5 levels</div>
  <p><b>Spend your gold:</b></p><div class="brow"><div class="ic">⚙</div><div class="tx"><b>Equipment Yard</b><br>Upgrade your gear with gold or 🔩 parts</div><button class="btn" id="shGear">Open</button></div>
- <div class="brow"><div class="ic">🍺</div><div class="tx"><b>Saloon</b><br>Extra skill-game plays (fixed fee)</div><button class="btn" id="shSal">Open</button></div>
+ <div class="brow"><div class="ic">${RB_MUG}</div><div class="tx"><b>Root Beer Saloon</b><br>Extra skill-game plays (fixed fee)</div><button class="btn" id="shSal">Open</button></div>
  <div class="stick"><button class="btn g" id="shClose">Close</button></div>`;
  showOv(h,()=>{onTap($('shClose'),()=>{hideOv();showMap()});onTap($('shGear'),()=>window.openGear(null));onTap($('shSal'),()=>window.openSaloon?window.openSaloon():showMap())});coach('shop',[{el:'#ovCard',t:'The <b>Shop</b> shows every free way to earn gold, and where to spend it.'}])}
 window.openShop=openShop;
@@ -653,7 +654,7 @@ function realStart(i,k){const base=S.boost.dyn;_start2(i);st.gearK=k&&k!=='none'
  if(st.gearK==='dyn'){const n=Math.round(t*bo);S.boost.dyn+=n;st.tmpDyn=n;msg.push(`🧨 +${n} dynamite`)}
  if(st.gearK==='exc'){const n=Math.round((t+1)*bo);st.digs+=n;st.max+=n;msg.push(`🚜 +${n} digs`)}
  if(st.gearK==='det'){const ps=[];for(let a=0;a<W;a++)for(let b=0;b<H;b++)if(B[a][b].t==='P')ps.push([a,b]);for(let j=0;j<Math.round(t*2*bo)&&ps.length;j++){const[a,b]=ps.splice(rnd(ps.length),1)[0];B[a][b]=newTile({t:'N',s:2})}msg.push('📡 nuggets found!')}
- if(st.gearK==='sluice')msg.push(`🪵 +${Math.round(t*10*bo)}% gold`);if(st.gearK==='hyd')msg.push(`🔨 +${Math.round(t*bo)} Power Pick`);if(sal)msg.push(`🍺 +${sal} digs`);
+ if(st.gearK==='sluice')msg.push(`🪵 +${Math.round(t*10*bo)}% gold`);if(st.gearK==='hyd')msg.push(`🔨 +${Math.round(t*bo)} Power Pick`);if(sal)msg.push(`🥤 Root Beer Saloon +${sal} digs`);
  updHud();renderBoost();if(msg.length&&!window.SIM)setTimeout(()=>toast(msg.join(' · '),2600),700);
  if(st.pick>0&&!window.SIM)setTimeout(()=>coach('pick',[{el:'#pickB',t:'This is your <b>⛏ Power Pick</b>. It smashes any block, even boulders, and more blocks as your Blacksmith levels up.'},{el:'#pickB',t:`You get <b>${st.pick} uses</b> each level. Tap it, then tap a block!`}]),900)}
 startLevel=function(i){// remove leftover free gear dynamite from the last level
@@ -776,6 +777,7 @@ const css=document.createElement('style');css.textContent=`
 .sal .sign:before,.sal .sign:after{content:'● ● ● ● ●';position:absolute;left:0;right:0;font-size:8px;color:#fff3a0;letter-spacing:6px;animation:bulb .5s steps(2) infinite}.sal .sign:before{top:-11px}.sal .sign:after{bottom:-11px}
 @keyframes bulb{50%{color:#ff9a3a}}body.calm .sal .sign:before,body.calm .sal .sign:after{animation:none}
 .sal .doors{font-size:13px;opacity:.85;margin-top:6px}
+.rbmug{width:1.15em;height:1.15em;vertical-align:middle}.brow .ic .rbmug{width:36px;height:36px}.sal .rbtap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;font-weight:800;color:#ffe9b0;font-size:15px}.sal .rbtap .rbmug{width:34px;height:34px}
 .mg{position:relative;height:230px;background:#0006;border:2px solid #c8962e88;border-radius:14px;margin:8px 0;overflow:hidden;touch-action:manipulation}
 .mg .big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;text-align:center;flex-direction:column}
 .meter{position:absolute;left:8%;right:8%;top:120px;height:26px;border-radius:13px;background:linear-gradient(90deg,#7a2a1a,#c8962e 35%,#9fe09f 47%,#9fe09f 53%,#c8962e 65%,#7a2a1a)}
@@ -784,13 +786,13 @@ const css=document.createElement('style');css.textContent=`
 .ring{position:absolute;left:50%;top:115px;border:5px solid #ffd34d;border-radius:50%;transform:translate(-50%,-50%)}
 .tgt{position:absolute;left:50%;top:115px;width:60px;height:60px;border:4px dashed #9fe09f;border-radius:50%;transform:translate(-50%,-50%)}`;document.head.appendChild(css);
 // ---- low on gold helper (free ways first, shop preview second) ----
-function lowGold(need,back){showOv(`<h2>🟡 Low on gold?</h2><p>You need <b>${need.toFixed(1)} oz</b> more.</p><div class="teaser" style="text-align:left">Free ways to get gold:<br>⛏ Play levels (every win pays gold)<br>📅 Collect your Daily Gold on the map<br>🍺 Use your free Saloon plays (${Math.max(0,FREE-day().free)} left today)<br>🎁 Open chests every 5 levels</div><button class="btn g" id="lgShop">💰 More ways to earn gold</button> <button class="btn" id="lgBack">Back</button><p style="font-size:11px;opacity:.7">Gold only buys fixed prices and items, never random prizes.</p>`,
+function lowGold(need,back){showOv(`<h2>🟡 Low on gold?</h2><p>You need <b>${need.toFixed(1)} oz</b> more.</p><div class="teaser" style="text-align:left">Free ways to get gold:<br>⛏ Play levels (every win pays gold)<br>📅 Collect your Daily Gold on the map<br>🥤 Use your free Root Beer Saloon plays (${Math.max(0,FREE-day().free)} left today)<br>🎁 Open chests every 5 levels</div><button class="btn g" id="lgShop">💰 More ways to earn gold</button> <button class="btn" id="lgBack">Back</button><p style="font-size:11px;opacity:.7">Gold only buys fixed prices and items, never random prizes.</p>`,
  ()=>{onTap($('lgShop'),()=>openShop());onTap($('lgBack'),()=>{hideOv();back?back():showMap()})})}
 window.lowGold=lowGold;
 // ---- Saloon home ----
 const GAMES=[['🤠','Quick-Draw','Tap the moment you see DRAW! Fast hands win.',quick],['<svg class="hshoe" viewBox="0 0 24 24" width="1em" height="1em" style="vertical-align:-.12em" aria-label="horseshoe"><path d="M5.5 2.5v8.5a6.5 6.5 0 0 0 13 0V2.5" fill="none" stroke="#4a3320" stroke-width="5.4" stroke-linecap="round"/><path d="M5.5 2.5v8.5a6.5 6.5 0 0 0 13 0V2.5" fill="none" stroke="#c9ccd3" stroke-width="3.4" stroke-linecap="round"/><g fill="#4a3320"><circle cx="5.5" cy="5.5" r=".75"/><circle cx="5.5" cy="9.5" r=".75"/><circle cx="18.5" cy="5.5" r=".75"/><circle cx="18.5" cy="9.5" r=".75"/><circle cx="8.3" cy="15.6" r=".75"/><circle cx="15.7" cy="15.6" r=".75"/></g></svg>','Horseshoe Toss','Stop the slider in the green. 3 throws.',shoe],['🍳','Pan for Gold','Tap when the ring hits the circle. 3 rounds.',pan],['🥤','Find the Nugget','Watch the cup with the nugget as they move. No tricks: just follow it!',shell]];
 function openSaloon(){const d=day(),fl=FREE-d.free,pl=PAID-d.paid;
- let h=`<div class="sal"><div class="sign">SALOON</div><div class="doors">🚪 Games of skill. Better score = better prize! 🚪</div></div>
+ let h=`<div class="sal"><div class="sign">SALOON</div><div class="rbtap">${RB_MUG}<span>Root Beer on tap! 🥤</span></div><div class="doors">🚪 Games of skill. Better score = better prize! 🚪</div></div>
  <p style="font-size:14px">🎟 Free plays today: <b>${fl}</b>/${FREE}${fl<=0?` · extra plays: <b>${pl}</b> left (🟡${FEE} oz each)`:''}</p>`;
  GAMES.forEach((g,i)=>h+=`<div class="brow"><div class="ic">${g[0]}</div><div class="tx"><b>${g[1]}</b><br>${g[2]}</div><button class="btn g" data-g="${i}">Play</button></div>`);
  h+=`<p style="font-size:12px;opacity:.75">Prizes: ⭐ 1 = 8 oz · ⭐⭐ 2 = 15 oz + booster · ⭐⭐⭐ 3 = 25 oz + booster + 🔩 gear part.<br>Collect 5 🔩 parts for a free gear upgrade in ⚙ Gear. 🔩 You have ${S.parts}.</p><div class="stick"><button class="btn" id="salX">Leave Saloon</button></div>`;
@@ -829,7 +831,7 @@ function shell(i){frame(i,`<div class="cup" id="c0" style="left:12%">🥤</div><
  cup(has).innerHTML='🟡';setTimeout(()=>{cup(has).innerHTML='🥤';let m=0;const moves=7;const sw=()=>{const a=rnd(3);let b=rnd(3);if(b===a)b=(a+1)%3;const ca=slot.indexOf(a),cb=slot.indexOf(b);slot[ca]=b;slot[cb]=a;cup(ca).style.left=X[b];cup(cb).style.left=X[a];if(++m<moves)setTimeout(sw,520);else{ready=true;$('shl').textContent='Which cup has the nugget? Tap it!'}};sw()},1100);
  [0,1,2].forEach(k=>onTap(cup(k),()=>{if(!ready)return;ready=false;cup(has).innerHTML='🟡';const ok=k===has;prize(ok?3:0,i,ok?'You followed it perfectly!':'The nugget was under the other cup. Keep your eye on it next time!')}))}
 // ---- map button + gear parts + low-gold hooks ----
-const _ts=TownStrip;window.TownStrip=tw=>{_ts(tw);const r=tw.querySelector('.tw2');if(r&&!$('salB')){const b=document.createElement('button');b.className='btn';b.id='salB';b.textContent='🍺 Saloon';r.appendChild(b);onTap(b,openSaloon)}};
+const _ts=TownStrip;window.TownStrip=tw=>{_ts(tw);const r=tw.querySelector('.tw2');if(r&&!$('salB')){const b=document.createElement('button');b.className='btn';b.id='salB';b.textContent='🥤 Saloon';r.appendChild(b);onTap(b,openSaloon)}};
 if($('sMap').classList.contains('on'))showMap();
 // gear: pay with 5 parts; low gold -> helper
 const _og=openGear;window.openGear=openGear=function(after){_og(after);document.querySelectorAll('[data-up][data-pay="oz"]').forEach(b=>{const k=b.dataset.up;const pb=document.createElement('button');pb.className='btn';pb.textContent='🔩5';pb.title='Use 5 gear parts';b.parentNode.appendChild(pb);
