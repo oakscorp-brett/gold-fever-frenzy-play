@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Gold Robbers v4 – Gold Fever Frenzy preview</title>
+<title>Gold Robbers v5 – Gold Fever Frenzy preview</title>
 <meta name="theme-color" content="#2a1a0e">
 <meta name="robots" content="noindex">
 <style>
@@ -87,11 +87,11 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
   <div id="wps">
    <button class="wp on" data-w="six"><canvas width="156" height="90"></canvas><span class="am">6/6</span></button>
    <button class="wp lock" data-w="dbl"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 8</span></button>
-   <button class="wp lock" data-w="rif"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Wave 3</span></button>
+   <button class="wp lock" data-w="rif"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 20</span></button>
   </div>
   <button id="rel" aria-label="Reload"><span id="relT">RELOAD</span><canvas id="pips" width="450" height="60"></canvas><i id="relP"></i></button>
  </div>
- <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v4</div>
+ <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v5</div>
 </div>
 <script>
 const $=id=>document.getElementById(id);
@@ -125,7 +125,7 @@ const SFX={
  boss:()=>{[196,185,175,165].forEach((f,i)=>tone(f,.22,'sawtooth',.05,0,i*.18))},
  win:()=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,.25,'square',.06,0,i*.12))},
  click:()=>tone(880,.05,'square',.04)};
-function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=4').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
+function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=5').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
 function voice(k){if(muted||!AC)return;const p=vload(k);if(p)p.then(buf=>{if(muted)return;const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=1.1;s.buffer=buf;s.connect(g);g.connect(AC.destination);s.start()}).catch(()=>{})}
 $('snd').onclick=()=>{muted=!muted;$('snd').textContent=muted?'🔇':'🔊'};
 
@@ -177,7 +177,7 @@ function spawn(q){const p=pile(),s=SC();const type=q.type;const sc=s*(type==='bo
   band:type==='boss'?'#b01818':type==='fast'?'#2e9a3e':type==='tough'?'#222':BANDS[(Math.random()*BANDS.length)|0],
   vest:type==='fast'||type==='tough'||Math.random()<.3,hat:true,face:x<p.x?1:-1};
  G.robbers.push(r);
- if(type==='boss'){call('BOSS BANDIT!','4 hits, or 2 with the rifle');SFX.boss();bub('Big Bad Bart! Use the rifle!',2600)}
+ if(type==='boss'){call('BOSS BANDIT!','4 hits, or 2 with the rifle');SFX.boss();bub(G.wpn.rif.unl?'Big Bad Bart! Use the rifle!':'Big Bad Bart! Keep poppin\' him!',2600)}
  if(type==='tough'&&!G.toughSeen){G.toughSeen=1;bub('Tough guy! 2 hits, or 1 rifle shot!',2400)}}
 function hitRobber(r,dmg,x,y){
  if(r.state!=='run')return false;
@@ -228,7 +228,7 @@ function collectPickup(q){G.pickups=G.pickups.filter(x=>x!==q);const k=q.k,w=WDE
  if(k==='dbl'){switchTo('dbl');bub('Yeehaw! Double the corks!',1600)}else bub('Tap Rifle below for tough guys!',2200);
  const b=document.querySelector(`.wp[data-w="${k}"]`);b.classList.remove('new');void b.offsetWidth;b.classList.add('new');updUI(true)}
 let toastTO;function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toastTO);toastTO=setTimeout(()=>e.classList.remove('on'),2200)}
-function pickupAt(x,y){const R=40*SC();return G.pickups.find(q=>Math.hypot(q.x-x,q.y-y)<R)}
+function pickupAt(x,y){const R=40*SC();return G.pickups.find(q=>q.t>.35&&Math.hypot(q.x-x,q.y-y)<R)} // short grace so a quick second shot at the same robber doesn't grab it by accident
 function drawPickups(t){for(const q of G.pickups){const left=q.life-q.t;let a=1;if(left<2)a=Math.sin(q.t*22)>0?1:.25;if(q.t<.3)a*=q.t/.3;
  const R=30*SC()*(1+.06*Math.sin(t/150));cx.save();cx.globalAlpha=a;
  const g=cx.createRadialGradient(q.x,q.y,R*.2,q.x,q.y,R*1.7);g.addColorStop(0,'#fff8c0cc');g.addColorStop(.55,'#ffd34d66');g.addColorStop(1,'#ffd34d00');cx.fillStyle=g;cx.beginPath();cx.arc(q.x,q.y,R*1.7,0,7);cx.fill();
