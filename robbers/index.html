@@ -274,7 +274,8 @@ function pt(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.
 cv.addEventListener('pointerdown',e=>{e.preventDefault();if(!live())return;const p=pt(e);
  const pk=pickupAt(p.x,p.y);if(pk){const onRob=robberUnder(p.x,p.y),dpk=Math.hypot(pk.x-p.x,pk.y-p.y);
   // only grab the bubble when the tap is on it and NOT on a robber (a dead-center tap on the bubble always grabs it)
-  if(!onRob||dpk<16*SC()){collectPickup(pk);return}}
+  const near=(G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run')).some(r=>Math.hypot(r.x-p.x,r.y-45*r.scale-p.y)<Math.max(dpk*1.6,46*SC()));
+  if(dpk<16*SC()||(!onRob&&!near)){collectPickup(pk);return}}
  if(p.y>H-80&&!seekAt(p.x,p.y)){drag=true;G.me.tx=Math.max(60,Math.min(W-60,p.x));return}
  shoot(p.x,p.y)});
 cv.addEventListener('pointermove',e=>{if(drag)G.me.tx=Math.max(60,Math.min(W-60,pt(e).x))});
