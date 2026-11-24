@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Gold Robbers v5 – Gold Fever Frenzy preview</title>
+<title>Gold Robbers v6 – Gold Fever Frenzy preview</title>
 <meta name="theme-color" content="#2a1a0e">
 <meta name="robots" content="noindex">
 <style>
@@ -22,15 +22,15 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
 #wrap{flex:1;position:relative;min-height:0}
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #ctl{display:flex;gap:6px;align-items:stretch;padding:6px 8px;background:linear-gradient(#3b2614,#2a1a0e);border-top:2px solid #5a3a1c}
-#wps{display:flex;gap:5px;flex:1.35}
-.wp{flex:1;min-width:0;border-radius:12px;border:2px solid #5a3a1c;background:#0006;color:#fff7e0;font-family:inherit;font-weight:800;font-size:11.5px;line-height:1.1;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;position:relative}
-.wp canvas{width:52px;height:30px}
+#wps{display:flex;gap:4px;flex:1.9}
+.wp{flex:1;min-width:0;border-radius:12px;border:2px solid #5a3a1c;background:#0006;color:#fff7e0;font-family:inherit;font-weight:800;font-size:10.5px;line-height:1.1;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;position:relative}
+.wp canvas{width:44px;height:26px}
 .wp.on{border-color:#ffd34d;background:#6a4a00;box-shadow:0 0 10px #ffb00088}
 .wp.lock{opacity:.55}.wp.lock canvas{filter:grayscale(1) brightness(.6)}
 .wp .lk{font-size:10px;font-weight:700;opacity:.9}
 .wp.new{animation:pulse .5s 6 alternate}
 @keyframes pulse{to{transform:scale(1.1)}}
-#rel{flex:1;border:none;border-radius:16px;background:linear-gradient(#ffd34d,#e09a12);color:#3a2205;font-family:inherit;font-weight:900;font-size:21px;box-shadow:0 4px 0 #8a5a08;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;min-height:68px;position:relative;overflow:hidden}
+#rel{flex:1;min-width:104px;border:none;border-radius:16px;background:linear-gradient(#ffd34d,#e09a12);color:#3a2205;font-family:inherit;font-weight:900;font-size:21px;box-shadow:0 4px 0 #8a5a08;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;min-height:68px;position:relative;overflow:hidden}
 #rel:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5a08}
 #rel canvas{width:100%;max-width:150px;height:20px;margin-top:3px}
 #rel i{position:absolute;left:0;bottom:0;height:5px;background:#3a2205;width:0}
@@ -61,25 +61,31 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
 #call small{display:block;font-size:20px;color:#fff7e0}
 #call.go{animation:call 1.5s ease-out}
 @keyframes call{0%{opacity:0;transform:scale(.3)}18%{opacity:1;transform:scale(1.2)}75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translateY(-30px)}}
-#bub{position:absolute;left:6px;bottom:140px;max-width:54%;display:flex;gap:6px;align-items:center;pointer-events:none;z-index:5;opacity:0;transition:opacity .3s}
+#bub{position:absolute;left:6px;top:58px;max-width:62%;display:flex;gap:6px;align-items:center;pointer-events:none;z-index:5;opacity:0;transition:opacity .3s}
 #bub.on{opacity:1}
 #bub span{background:#fff7e0;color:#3a2205;border-radius:14px;padding:5px 9px;font-weight:800;font-size:14px;box-shadow:0 2px 0 #0006}
 #bub em{font-style:normal;font-size:28px}
 #toast{position:absolute;left:50%;top:10px;transform:translateX(-50%) scale(.6);background:linear-gradient(#ffe27a,#e0a020);color:#3a2205;font-weight:900;font-size:16px;padding:8px 14px;border-radius:20px;box-shadow:0 3px 0 #8a5a08,0 0 16px #ffb000;opacity:0;pointer-events:none;z-index:12;white-space:nowrap;transition:opacity .25s,transform .25s}
 #toast.on{opacity:1;transform:translateX(-50%) scale(1)}
+#wb{position:absolute;left:0;right:0;top:21%;text-align:center;pointer-events:none;z-index:11;background:linear-gradient(90deg,#0000,#000a 20%,#000a 80%,#0000);padding:6px 0;opacity:0;transition:opacity .3s}
+#wb.on{opacity:1}
+#wb .wt{font-size:40px;font-weight:900;color:#ffd34d;letter-spacing:3px;text-shadow:0 3px 0 #7a4a00,0 0 18px #ff9800}
+#wb .ws{font-size:16px;font-weight:800;color:#fff7e0}
+#wb .wc{font-size:26px;font-weight:900;color:#9cf07a;margin-top:0}
+@media (max-width:400px){.pill{font-size:12.5px;padding:4px 7px}#snd{font-size:18px!important;padding:2px 2px!important}}
 #snd{background:none;border:none;font-size:20px;padding:2px 6px;color:#fff}
 #ctl.off{display:none}
 @media (max-height:700px){.pros{font-size:24px}.card h2{font-size:22px;margin:0 0 4px}.row{padding:4px 10px;margin:3px 0}.card p{font-size:14.5px;margin:3px 0}.btn.big{padding:12px}#hud .big{font-size:17px}.how{font-size:12.5px;line-height:1.3}.note{margin:4px 0 6px}#rel{min-height:58px;font-size:19px}.wp canvas{height:24px}}
 </style></head><body>
 <div id="app">
- <div class="top"><span class="pill">⛏️ Level 15 bonus</span><span class="pill" id="phase">🤠 Gold Robbers</span><span class="pill" id="tm">⏱ 40</span><button id="snd" aria-label="Sound on/off">🔊</button></div>
+ <div class="top"><span class="pill">⛏️ Level 15</span><span class="pill" id="phase">🤠 Gold Robbers</span><span class="pill" id="tm">⏱ 40</span><button id="snd" aria-label="Sound on/off">🔊</button></div>
  <div id="hud">
   <div class="box"><div class="big" id="hRisk">120 oz</div><div class="lbl">Gold at risk</div></div>
   <div class="box red"><div class="big" id="hStolen">0 oz</div><div class="lbl">Stolen</div></div>
   <div class="box grn"><div class="big" id="hStop">0</div><div class="lbl" id="hStopL">Robbers stopped</div></div>
  </div>
  <div id="bar"><i id="barI"></i></div>
- <div id="wrap"><canvas id="cv"></canvas><div id="call"></div><div id="toast"></div><div id="bub"><em>🤠</em><span id="bubT"></span></div>
+ <div id="wrap"><canvas id="cv"></canvas><div id="call"></div><div id="wb"><div class="wt" id="wbT">WAVE 1</div><div class="ws" id="wbS"></div><div class="wc" id="wbC">3</div></div><div id="toast"></div><div id="bub"><em>🤠</em><span id="bubT"></span></div>
   <div class="ov" id="pop"><div class="card" id="popC"></div></div>
   <div class="ov on" id="ov"><div class="card" id="card"></div></div>
  </div>
@@ -87,24 +93,27 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
   <div id="wps">
    <button class="wp on" data-w="six"><canvas width="156" height="90"></canvas><span class="am">6/6</span></button>
    <button class="wp lock" data-w="dbl"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 8</span></button>
-   <button class="wp lock" data-w="rif"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 20</span></button>
+   <button class="wp lock" data-w="sg"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 18</span></button>
+   <button class="wp lock" data-w="dsg"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 30</span></button>
   </div>
   <button id="rel" aria-label="Reload"><span id="relT">RELOAD</span><canvas id="pips" width="450" height="60"></canvas><i id="relP"></i></button>
  </div>
- <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v5</div>
+ <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v6</div>
 </div>
 <script>
 const $=id=>document.getElementById(id);
 const START_OZ=1200,BOUGHT_OZ=300,CAP=Math.round(START_OZ*.10),PERFECT_BONUS=25;
 const TAKE={norm:15,fast:15,tough:20,boss:30};
-const DEFEND_MAX=48,CHASE_S=10;
+const DEFEND_MAX=95,CHASE_S=10;
 const WDEF={
  six:{name:'Six-shooter',short:'Six-gun',mag:6,cool:.15,dmg:1,sp:950,base:.3,per:.2,seek:.3},
  dbl:{name:'Double Six-Shooters',short:'Doubles',mag:12,cool:.075,dmg:1,sp:950,base:.45,per:.2,seek:.3},
- rif:{name:'Cork Rifle',short:'Rifle',mag:4,cool:.55,dmg:2,sp:1500,base:.45,per:.6,seek:.25}};
-const UNLOCK={dbl:{stop:8,wave:1,label:'Stop 8'},rif:{stop:20,wave:2,label:'Stop 20'}};
-const WAVES=[[0,8,1.0,1,0],[10,11,.85,3,2],[22,14,.62,4,4]]; // start, count, gap, fast, tough
-const BOSS_AT=31;
+ sg:{name:'Cork Shotgun',short:'Shotgun',mag:6,cool:.45,dmg:1,sp:1000,base:.6,per:.48,seek:0,pellets:4,spread:.2,perShot:1,bossCap:2},
+ dsg:{name:'Double Shotguns',short:'2x Shotgun',mag:12,cool:.55,dmg:1,sp:1000,base:.7,per:.33,seek:0,pellets:4,spread:.24,perShot:2,bossCap:3}};
+const UNLOCK={dbl:{stop:8,wave:1,label:'Stop 8'},sg:{stop:18,wave:2,label:'Stop 18'},dsg:{stop:30,wave:2,label:'Stop 30',needs:'sg'}};
+// each wave arrives in groups; a short break between waves (time to reload)
+const WAVES=[{g:[3,3,4],gap:3.0,fast:1,tough:0,sub:'Here they come!'},{g:[4,5,5],gap:2.7,fast:4,tough:3,sub:'Fast ones and tough guys!'},{g:[4,4,5,5],gap:2.4,fast:5,tough:5,boss:1,sub:'Big gang + the boss!'}];
+const BREAK_S=3;
 // ---------- sound (same synth helpers as the game) ----------
 let AC=null,muted=false,vbuf={};
 function audioInit(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){AC=null}}
@@ -112,7 +121,7 @@ function tone(f,d=.12,type='square',vol=.08,slide=0,delay=0){if(muted||!AC)retur
 function noise(d=.25,vol=.2,delay=0,freq=700,type='lowpass'){if(muted||!AC)return;try{const t=AC.currentTime+delay,b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),a=b.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=(Math.random()*2-1)*(1-i/a.length);const s=AC.createBufferSource(),g=AC.createGain(),f=AC.createBiquadFilter();f.type=type;f.frequency.value=freq;s.buffer=b;g.gain.value=vol;s.connect(f);f.connect(g);g.connect(AC.destination);s.start(t)}catch(e){}}
 const SFX={
  pop:()=>{noise(.07,.35,0,2500,'bandpass');tone(900,.06,'square',.05,-500)},
- rifle:()=>{noise(.12,.45,0,1500,'bandpass');tone(500,.12,'square',.06,-300)},
+ shotgun:()=>{noise(.22,.5,0,900,'bandpass');noise(.1,.3,0,2600,'bandpass');tone(260,.16,'square',.06,-160)},
  bonk:()=>{tone(520,.1,'triangle',.12,-300);noise(.08,.15)},
  thud:()=>{tone(260,.12,'triangle',.12,-100)},
  empty:()=>{tone(1800,.03,'square',.05);tone(1400,.03,'square',.04,0,.05)},
@@ -125,7 +134,7 @@ const SFX={
  boss:()=>{[196,185,175,165].forEach((f,i)=>tone(f,.22,'sawtooth',.05,0,i*.18))},
  win:()=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,.25,'square',.06,0,i*.12))},
  click:()=>tone(880,.05,'square',.04)};
-function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=5').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
+function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=6').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
 function voice(k){if(muted||!AC)return;const p=vload(k);if(p)p.then(buf=>{if(muted)return;const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=1.1;s.buffer=buf;s.connect(g);g.connect(AC.destination);s.start()}).catch(()=>{})}
 $('snd').onclick=()=>{muted=!muted;$('snd').textContent=muted?'🔇':'🔊'};
 
@@ -138,11 +147,17 @@ const SC=()=>Math.max(1.0,Math.min(1.4,W/310));
 
 let G=null;window.__G=()=>G;
 function fresh(){return{phase:'intro',t:0,el:0,paused:false,robbers:[],corks:[],sacks:[],fx:[],puffs:[],hats:[],stolen:0,stopped:0,tough:0,escaped:[],recovered:0,caught:0,queue:[],chasers:[],shots:0,hits:0,
- wpn:{six:{ammo:6,unl:true},dbl:{ammo:12,unl:false},rif:{ammo:4,unl:false}},pickups:[],drops:{},dropWait:{},missedPicks:0,cur:'six',rl:null,cool:0,hand:0,unlocked:[],
- me:{x:W/2||180,aim:-Math.PI/2,kick:0,kick2:0,walk:0},bossDone:false,wave:0}}
+ wpn:{six:{ammo:6,unl:true},dbl:{ammo:12,unl:false},sg:{ammo:6,unl:false},dsg:{ammo:12,unl:false}},pickups:[],drops:{},dropWait:{},missedPicks:0,cur:'six',rl:null,cool:0,hand:0,unlocked:[],
+ me:{x:W/2||180,aim:-Math.PI/2,kick:0,kick2:0,walk:0},bossDone:false,wave:0,waveOn:false,waveT:0,brk:2.2,pileF:1}}
 G=fresh();
-function buildQueue(){const q=[];WAVES.forEach((w,wi)=>{const idx=[...Array(w[1]-1)].map((_,i)=>i+1).sort(()=>Math.random()-.5);const fast=new Set(idx.slice(0,w[3])),tough=new Set(idx.slice(w[3],w[3]+w[4]));
- for(let i=0;i<w[1];i++)q.push({at:w[0]+i*w[2]+Math.random()*.25,type:fast.has(i)?'fast':tough.has(i)?'tough':'norm',wave:wi})});q.push({at:BOSS_AT,type:'boss',wave:2});return q.sort((a,b)=>a.at-b.at)}
+function buildWave(wi){const w=WAVES[wi],tot=w.g.reduce((a,b)=>a+b,0),idx=[...Array(tot)].map((_,i)=>i).sort(()=>Math.random()-.5);
+ const fast=new Set(idx.slice(0,w.fast)),tough=new Set(idx.slice(w.fast,w.fast+w.tough));const q=[];let k=0;const sides=['L','R','T'].sort(()=>Math.random()-.5);
+ w.g.forEach((n,gi)=>{const side=sides[gi%3];for(let j=0;j<n;j++,k++)q.push({at:gi*w.gap+j*.38+Math.random()*.1,type:fast.has(k)?'fast':tough.has(k)?'tough':'norm',wave:wi,side,slot:j,n})});
+ if(w.boss)q.push({at:(w.g.length-1)*w.gap+.3,type:'boss',wave:wi,side:Math.random()<.5?'L':'R',slot:0,n:1});return q.sort((a,b)=>a.at-b.at)}
+function waveBanner(i,first){$('wbT').textContent='WAVE '+(i+1)+' / '+WAVES.length;$('wbS').innerHTML=(first?'':'<span style="color:#9cf07a">Wave cleared! Reload now!</span><br>')+WAVES[i].sub;$('wbC').textContent=Math.ceil(G.brk);$('wb').classList.add('on');$('phase').textContent='⭐ Get ready';SFX.whistle();}
+function startWave(i){G.waveOn=true;G.waveT=0;G.queue=buildWave(i);$('wbC').textContent='GO!';setTimeout(()=>$('wb').classList.remove('on'),450);$('phase').textContent='🛡 Wave '+(i+1)+'/'+WAVES.length}
+function endDefend(){G.robbers.forEach(r=>{if(r.state==='run'){r.state='scared';r.vx=(r.x<W/2?-1:1)*280;r.vy=-80}});$('wb').classList.remove('on');
+ G.phase='pause';G.rl=null;if(G.escaped.length)setTimeout(startChase,1000);else{call('Not one got through!');setTimeout(endGame,1400)}}
 function setHud(){const lost=G.stolen-G.recovered;$('hStolen').textContent=Math.round(lost)+' oz';$('hStop').textContent=G.phase==='chase'?G.caught:G.stopped;$('hStopL').textContent=G.phase==='chase'?'Robbers caught':'Robbers stopped';$('barI').style.width=Math.min(100,lost/CAP*100)+'%'}
 function call(t,sub=''){const c=$('call');c.innerHTML=t+(sub?`<small>${sub}</small>`:'');c.classList.remove('go');void c.offsetWidth;c.classList.add('go')}
 let bubTO;function bub(t,ms=2000){$('bubT').textContent=t;$('bub').classList.add('on');clearTimeout(bubTO);bubTO=setTimeout(()=>$('bub').classList.remove('on'),ms)}
@@ -152,24 +167,25 @@ function intro(){
  $('ctl').classList.add('off');
  $('card').innerHTML=`<div class="pros">🤠</div><h2>Gold Robbers!</h2>
  <p><b>Every 15 levels</b> an outlaw gang comes for your gold!</p>
- <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts!<br>🔄 Out of corks? Hit the big <b>RELOAD</b> button (anytime to top up).<br>⭐ Stop enough robbers and a glowing <b>upgrade</b> floats up. <b>Tap it</b> to grab Double Six-Shooters or a Cork Rifle!<br>💪 <b>Tough</b> guys take 2 hits (rifle: 1). <b>Boss</b>: 4 (rifle: 2).<br>↔️ Drag along the bottom to move.</div>
+ <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts!<br>🔄 Out of corks? Hit the big <b>RELOAD</b> button (anytime to top up).<br>⭐ Stop enough robbers and a glowing <b>upgrade</b> floats up. <b>Tap it</b> to grab Double Six-Shooters, a Cork Shotgun, then Double Shotguns!<br>💪 <b>Tough</b> guys: 2 hits or 1 shotgun blast. <b>Boss</b>: 4 hits or 2 blasts.<br>🌊 <b>3 waves</b>, with a short break to reload.<br>↔️ Drag along the bottom to move.</div>
  <div class="row"><span>Gold you dug</span><b>${START_OZ.toLocaleString()} oz</b></div>
  <div class="row"><span>Most they can take (10%)</span><b>${CAP} oz</b></div>
  <p class="note">🔒 Robbers can't touch gold you bought (your ${BOUGHT_OZ} oz is safe).</p>
  <button class="btn g big" id="go">Defend my gold!</button>`;
  $('ov').classList.add('on');$('go').onclick=()=>{audioInit();if(AC&&AC.state==='suspended')AC.resume();['smokes','win1','hoser','close1','strike'].forEach(vload);SFX.click();startDefend()};
 }
-function startDefend(){G=fresh();G.phase='defend';G.queue=buildQueue();$('ov').classList.remove('on');$('ctl').classList.remove('off');size();drawIcons();G.me.x=W/2;$('phase').textContent='🛡 Wave 1';setHud();updUI(true);call('Wave 1','Here they come!');voice('smokes');SFX.whistle()}
+function startDefend(){G=fresh();G.phase='defend';G.queue=[];$('ov').classList.remove('on');$('ctl').classList.remove('off');size();drawIcons();G.me.x=W/2;$('phase').textContent='🛡 Wave 1';setHud();updUI(true);waveBanner(0,true);voice('smokes')}
 
 // ---------- robbers ----------
 const COATS=[['#6b4423','#4a2e16'],['#4a4a52','#2e2e34'],['#7a5a32','#54391c'],['#3a4a3a','#253025']];
 const BANDS=['#c0392b','#2a6ad0','#d07a1a','#7a2a8a'];
 function spawn(q){const p=pile(),s=SC();const type=q.type;const sc=s*(type==='boss'?1.5:type==='tough'?1.2:1);
  const minY=Math.max(H*.2,95*sc);let x,y,fade=1;
- if(type==='boss'){x=Math.random()<.5?-50:W+50;y=minY+H*.05}
- else if(Math.random()<.7){x=Math.random()<.5?-40:W+40;y=minY+Math.random()*H*.22}
- else{x=W*.15+Math.random()*W*.7;y=minY;fade=0;puff(x,y-40*sc,1.6)} // pops out from behind the mesa
- const base=(58+q.wave*14)*(H/560);
+ const sl=q.slot||0;
+ if(type==='boss'){x=q.side==='R'?W+60:-60;y=minY+H*.05}
+ else if(q.side==='L'||q.side==='R'){x=(q.side==='L'?-40:W+40);y=minY+((sl*37)%100)/100*H*.24}
+ else{x=W*(.14+.72*((sl+.5)/(q.n||1)));y=minY;fade=0;puff(x,y-40*sc,1.6)} // pops out from behind the mesa
+ const base=(62+q.wave*16)*(H/560);
  const hp=type==='boss'?4:type==='tough'?2:1;
  const r={x,y,type,state:'run',ph:Math.random()*6,wob:Math.random()*6,t:0,scale:sc,fade,
   sp:type==='boss'?base*.6:type==='fast'?base*1.75:type==='tough'?base*.8:base*(0.9+Math.random()*.25),hp,maxhp:hp,id:Math.random(),
@@ -177,11 +193,11 @@ function spawn(q){const p=pile(),s=SC();const type=q.type;const sc=s*(type==='bo
   band:type==='boss'?'#b01818':type==='fast'?'#2e9a3e':type==='tough'?'#222':BANDS[(Math.random()*BANDS.length)|0],
   vest:type==='fast'||type==='tough'||Math.random()<.3,hat:true,face:x<p.x?1:-1};
  G.robbers.push(r);
- if(type==='boss'){call('BOSS BANDIT!','4 hits, or 2 with the rifle');SFX.boss();bub(G.wpn.rif.unl?'Big Bad Bart! Use the rifle!':'Big Bad Bart! Keep poppin\' him!',2600)}
- if(type==='tough'&&!G.toughSeen){G.toughSeen=1;bub('Tough guy! 2 hits, or 1 rifle shot!',2400)}}
-function hitRobber(r,dmg,x,y){
+ if(type==='boss'){call('BOSS BANDIT!','4 hits, or 2 shotgun blasts');SFX.boss();bub(G.wpn.sg.unl||G.wpn.dsg.unl?'Big Bad Bart! Blast him with the shotgun!':'Big Bad Bart! Keep poppin\' him!',2600)}
+ if(type==='tough'&&!G.toughSeen){G.toughSeen=1;bub('Tough guy! 2 hits, or 1 shotgun blast!',2400)}}
+function hitRobber(r,dmg,x,y,countHit=true){
  if(r.state!=='run')return false;
- r.hp-=dmg;G.hits++;puff(x,y,dmg>1?1.7:1.3);G.fx.push({x:x+14,y:y-6,txt:dmg>1?'KA-POP!':'POP!',col:'#fff',sz:dmg>1?20:17,life:.7});
+ r.hp-=dmg;if(countHit)G.hits++;puff(x,y,dmg>1?1.7:1.3);G.fx.push({x:x+14,y:y-6,txt:dmg>1?'KA-POP!':'POP!',col:'#fff',sz:dmg>1?20:17,life:.7});
  if(r.hp>0){SFX.thud();if(r.hat){r.hat=false;hatFly(r)}else r.bandanaDown=true;r.stun=.4;float(r.x,r.y-110*r.scale,['Hey!','Grrr!','Ow, my hat!'][r.hp%3],'#fff',20);return true}
  SFX.bonk();r.state='scared';r.t=0;G.stopped++;if(r.type==='tough')G.tough++;if(r.hat){r.hat=false;hatFly(r)}
  const p=pile();G.sacks.push({x:r.x-10*r.face*r.scale,y:r.y-55*r.scale,tx:p.x,ty:p.y-10,t:0,boss:r.type==='boss'});
@@ -203,20 +219,26 @@ function shoot(tx,ty){
  if(G.cool>0)return false;
  if(st.ammo<=0){SFX.empty();G.cool=.15;G.emptyTaps=(G.emptyTaps||0)+1;float(G.me.x,groundY()-120*SC(),'Click! RELOAD!','#ff8a6a',18);if(G.emptyTaps%3===1)bub('Hit RELOAD, quick!',1300);return false}
  if(G.rl)G.rl=null; // shooting stops a top-up
+ if(w.pellets){const use=Math.min(w.perShot,st.ammo);st.ammo-=use;G.cool=w.cool;G.shots++;const hands=G.cur==='dsg'?(use===2?[0,1]:[G.hand^=1]):[0];const blast={hit:false,boss:0,cap:use===2?w.bossCap:2};
+  for(const h of hands){const sh=shoulder(h);let a=Math.atan2(ty-sh.y,tx-sh.x);if(a>-.15&&a<Math.PI/2)a=-.15;else if(a>=Math.PI/2||a<-Math.PI+.15)a=-Math.PI+.15;
+   if(h){G.me.aim2=a;G.me.kick2=1.4}else{G.me.aim=a;G.me.kick=1.4;if(G.cur!=='dsg')G.me.aim2=a}
+   const len=40*SC(),mx=sh.x+Math.cos(a)*len,my=sh.y+Math.sin(a)*len;puff(mx,my,1.2);
+   for(let i=0;i<w.pellets;i++){const off=(i/(w.pellets-1)-.5)*w.spread+(Math.random()-.5)*.03;G.corks.push({x:mx,y:my,a:a+off,sp:w.sp*(0.95+Math.random()*.1),dmg:1,seek:null,turn:0,life:.62,rot:Math.random()*6,pellet:1,blast})}}
+  SFX.shotgun();G.fx.push({x:G.me.x,y:groundY()-125*SC(),txt:'PA-POW!',col:'#fff',sz:16,life:.5});updUI();return true}
  const h=G.cur==='dbl'?(G.hand^=1):0;const sh=shoulder(h);
  let a=Math.atan2(ty-sh.y,tx-sh.x);if(a>-.15&&a<Math.PI/2)a=-.15;else if(a>=Math.PI/2||a<-Math.PI+.15)a=-Math.PI+.15;
  if(h)G.me.aim2=a;else G.me.aim=a;if(G.cur!=='dbl')G.me.aim2=a;
  st.ammo--;G.cool=w.cool;G.shots++;if(h)G.me.kick2=1;else G.me.kick=1;
- const len=(G.cur==='rif'?44:26)*SC();const mx=sh.x+Math.cos(a)*len,my=sh.y+Math.sin(a)*len;
- (G.cur==='rif'?SFX.rifle:SFX.pop)();puff(mx,my,G.cur==='rif'?1:.7);
- G.corks.push({x:mx,y:my,a,sp:w.sp,dmg:w.dmg,seek:seekAt(tx,ty),turn:w.seek,life:1.3,rot:0,big:G.cur==='rif'});
+ const len=26*SC();const mx=sh.x+Math.cos(a)*len,my=sh.y+Math.sin(a)*len;
+ SFX.pop();puff(mx,my,.7);
+ G.corks.push({x:mx,y:my,a,sp:w.sp,dmg:w.dmg,seek:seekAt(tx,ty),turn:w.seek,life:1.3,rot:0});
  updUI();return true}
 // mild help: a cork steers a little toward the robber you tapped near, so aim still matters
 function seekAt(x,y){const list=G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run');let best=null,bd=1e9;
  for(const r of list){const R=26*r.scale,dx=r.x-x,dy=(r.y-45*r.scale)-y,d=dx*dx+dy*dy;if(d<R*R&&d<bd){bd=d;best=r}}return best}
 // upgrades drop as a glowing pickup from the robber who earned it; tap it to collect (no ammo, not a shot)
 function checkUnlocks(){}
-function maybeDrop(r){if(G.phase!=='defend')return;for(const k of ['dbl','rif']){const u=UNLOCK[k];
+function maybeDrop(r){if(G.phase!=='defend')return;for(const k of ['dbl','sg','dsg']){const u=UNLOCK[k];if(u.needs&&!G.wpn[u.needs].unl)continue;
  if(G.wpn[k].unl||G.pickups.some(q=>q.k===k)||(G.dropWait[k]||0)>G.el)continue;
  if(G.stopped>=u.stop||(G.wave>=u.wave&&r.type==='tough')){dropPickup(k,r);return}}}
 function dropPickup(k,r){const y=r.y-50*r.scale;G.drops[k]=(G.drops[k]||0)+1;
@@ -225,7 +247,7 @@ function dropPickup(k,r){const y=r.y-50*r.scale;G.drops[k]=(G.drops[k]||0)+1;
  float(r.x,y-40,G.drops[k]>1?'Another upgrade! Tap it!':'Upgrade! Tap it!','#9cf07a',18);bub(G.drops[k]>1?'Here\'s another chance, grab it!':'Ooh, an upgrade! Tap it!',1800);updUI(true)}
 function collectPickup(q){G.pickups=G.pickups.filter(x=>x!==q);const k=q.k,w=WDEF[k];G.wpn[k].unl=true;G.wpn[k].ammo=w.mag;G.unlocked.push(k);
  SFX.unlock();puff(q.x,q.y,1.4);coinBurst(q.x,q.y,10);toast('⭐ Got the '+w.name+'!');
- if(k==='dbl'){switchTo('dbl');bub('Yeehaw! Double the corks!',1600)}else bub('Tap Rifle below for tough guys!',2200);
+ if(k==='dbl'){switchTo('dbl');bub('Yeehaw! Double the corks!',1600)}else if(k==='sg')bub('Tap Shotgun below. Great for tough guys!',2200);else{if(G.cur==='sg')switchTo('dsg');bub('Double Shotguns! 8 corks a blast!',2200)}
  const b=document.querySelector(`.wp[data-w="${k}"]`);b.classList.remove('new');void b.offsetWidth;b.classList.add('new');updUI(true)}
 let toastTO;function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toastTO);toastTO=setTimeout(()=>e.classList.remove('on'),2200)}
 function pickupAt(x,y){const R=40*SC();return G.pickups.find(q=>q.t>.35&&Math.hypot(q.x-x,q.y-y)<R)} // short grace so a quick second shot at the same robber doesn't grab it by accident
@@ -290,10 +312,11 @@ function drawBg(t){
  cactus(W*.07,H*.38,.8);cactus(W*.93,H*.5,1);
  // boardwalk where you stand
  const gy=groundY();cx.fillStyle='#5a3a1c';cx.fillRect(0,gy-8,W,H-gy+8);cx.fillStyle='#6e4a24';for(let x=0;x<W;x+=34){cx.fillRect(x+1,gy-8,32,6)}cx.fillStyle='#0003';cx.fillRect(0,gy-10,W,3);
- const p=pile();cx.fillStyle='#0004';cx.beginPath();cx.ellipse(p.x,p.y+p.r*.45,p.r*1.3,p.r*.35,0,0,7);cx.fill();
- const left=Math.max(0,1-(G.stolen-G.recovered)/CAP*.5),n=Math.round(14*left);
+ const p=pile();cx.fillStyle='#0004';cx.beginPath();cx.ellipse(p.x,p.y+p.r*.45,p.r*(.7+.6*(G.pileF??1)),p.r*.35,0,0,7);cx.fill();
+ const frac=Math.max(0,1-(G.stolen-G.recovered)/CAP);G.pileF+=(frac-G.pileF)*.06;const f=G.pileF,n=Math.max(3,Math.round(14*f)),pz=.6+.4*f;
  const spots=[[0,0],[-.5,.1],[.5,.1],[-.25,-.25],[.25,-.25],[0,-.5],[-.8,.25],[.8,.25],[-.55,-.1],[.55,-.1],[-.3,.3],[.3,.3],[0,.3],[0,-.75]];
- for(let i=0;i<n;i++){const s=spots[i];nugget(p.x+s[0]*p.r,p.y+s[1]*p.r,p.r*(.28-(i>9?.06:0)),t,i)}
+ for(let i=0;i<n;i++){const s=spots[i];nugget(p.x+s[0]*p.r*pz,p.y+s[1]*p.r*pz+p.r*(1-pz)*.3,p.r*pz*(.28-(i>9?.06:0)),t,i)}
+ const oz=START_OZ-(G.stolen-G.recovered);cx.font='900 13px system-ui';cx.textAlign='center';cx.lineWidth=3;cx.strokeStyle='#3a2205';cx.strokeText(oz.toLocaleString()+' oz',p.x,p.y+p.r*.95);cx.fillStyle=frac<1?'#ffb08a':'#fff7e0';cx.fillText(oz.toLocaleString()+' oz',p.x,p.y+p.r*.95)
 }
 // Old West outlaw: cowboy hat, bandana over the face, duster or vest, boots with spurs, money sack. No weapons.
 function outlaw(r,t,o={}){
@@ -350,14 +373,15 @@ function drawHat(col,boss){cx.fillStyle=col;cx.beginPath();cx.moveTo(-17,-70);cx
 // ---------- toy guns (bright colors, orange safety tips, corks) ----------
 function krr(k,x,y,w,h,r){k.beginPath();k.moveTo(x+r,y);k.arcTo(x+w,y,x+w,y+h,r);k.arcTo(x+w,y+h,x,y+h,r);k.arcTo(x,y+h,x,y,r);k.arcTo(x,y,x+w,y,r);k.closePath()}
 function gunSix(k){k.fillStyle='#8a5a2a';krr(k,-3,1,6,9,2);k.fill();k.fillStyle='#2a7ad0';krr(k,-1,-4,10,7,2);k.fill();k.fillStyle='#ffd34d';krr(k,2,-5,7,9,3);k.fill();k.fillStyle='#2a7ad0';krr(k,8,-3,12,5,2);k.fill();k.fillStyle='#ff7a1a';krr(k,18,-3.5,4,6,1.5);k.fill()}
-function gunRifle(k){k.fillStyle='#8a5a2a';k.beginPath();k.moveTo(-18,-2);k.lineTo(0,-3);k.lineTo(0,4);k.lineTo(-18,8);k.quadraticCurveTo(-21,3,-18,-2);k.fill();
- k.fillStyle='#2a7ad0';krr(k,-1,-4,17,8,2);k.fill();k.fillStyle='#ffd34d';krr(k,5,-5.5,4,11,2);k.fill();k.fillStyle='#2ab07a';krr(k,3,-8,10,3,1.5);k.fill();
- k.fillStyle='#2a7ad0';krr(k,15,-2.5,26,5,2);k.fill();k.fillStyle='#ff7a1a';krr(k,39,-3.5,4,7,1.5);k.fill();k.fillStyle='#d8a868';k.beginPath();k.arc(44,0,2.6,0,7);k.fill()}
+function gunShotgun(k){k.fillStyle='#8a5a2a';k.beginPath();k.moveTo(-18,-2);k.lineTo(0,-3);k.lineTo(0,5);k.lineTo(-18,9);k.quadraticCurveTo(-21,3,-18,-2);k.fill();
+ k.fillStyle='#d03a2a';krr(k,-1,-5,15,10,2.5);k.fill();k.fillStyle='#2a7ad0';krr(k,12,-5,26,4.4,2);k.fill();krr(k,12,-.4,26,4.4,2);k.fill();
+ k.fillStyle='#ffd34d';krr(k,17,3.5,11,5,2);k.fill();k.fillStyle='#ff7a1a';krr(k,37,-5.5,3.5,10,1.5);k.fill()}
 function iconGun(k,type,w,h){k.clearRect(0,0,w,h);gunIcon(k,type,w,h)}
 function gunIcon(k,type,w,h){k.save();k.translate(w/2,h/2);
  if(type==='six'){k.scale(h/16,h/16);k.translate(-8,0);gunSix(k)}
  else if(type==='dbl'){k.save();k.scale(h/20,h/20);k.translate(-13,-3.5);gunSix(k);k.restore();k.save();k.scale(h/20,h/20);k.translate(-3,4);gunSix(k);k.restore()}
- else{k.scale(w/68,w/68);k.translate(-12,0);gunRifle(k)}k.restore()}
+ else if(type==='sg'){k.scale(w/64,w/64);k.translate(-10,0);gunShotgun(k)}
+ else{k.save();k.scale(w/76,w/76);k.translate(-12,-5);gunShotgun(k);k.restore();k.save();k.scale(w/76,w/76);k.translate(-6,6);gunShotgun(k);k.restore()}k.restore()}
 function drawIcons(){document.querySelectorAll('.wp canvas').forEach(c=>{const k=c.getContext('2d');k.setTransform(1,0,0,1,0,0);iconGun(k,c.parentNode.dataset.w,c.width,c.height)})}
 // you: the prospector-sheriff
 function drawMe(t){const m=G.me,s=SC(),gy=groundY();const walking=Math.abs(m.walk)>.5,step=walking?Math.sin(t/70):0;
@@ -368,7 +392,7 @@ function drawMe(t){const m=G.me,s=SC(),gy=groundY();const walking=Math.abs(m.wal
  cx.fillStyle='#c0392b';rr(-12,-56,24,30,7);cx.fill();cx.strokeStyle='#8a1f14';cx.lineWidth=1.5;for(let i=-8;i<12;i+=6){cx.beginPath();cx.moveTo(i,-56);cx.lineTo(i,-27);cx.stroke()}for(let j=-50;j<-27;j+=7){cx.beginPath();cx.moveTo(-12,j);cx.lineTo(12,j);cx.stroke()}
  cx.strokeStyle='#3a2a1a';cx.lineWidth=2.5;cx.beginPath();cx.moveTo(-6,-56);cx.lineTo(-6,-28);cx.moveTo(6,-56);cx.lineTo(6,-28);cx.stroke();
  cx.fillStyle='#ffd34d';cx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rad=i%2?2.2:5;cx.lineTo(-6+Math.cos(a)*rad,-45+Math.sin(a)*rad)}cx.closePath();cx.fill();
- if(G.cur==='six'){cx.strokeStyle='#c0392b';cx.lineWidth=6;cx.beginPath();cx.moveTo(-10,-52);cx.lineTo(-15,-36);cx.stroke()}
+ if(G.cur==='six'||G.cur==='sg'){cx.strokeStyle='#c0392b';cx.lineWidth=6;cx.beginPath();cx.moveTo(-10,-52);cx.lineTo(-15,-36);cx.stroke()}
  cx.fillStyle='#f0bd88';cx.beginPath();cx.arc(0,-66,11,0,7);cx.fill();
  cx.fillStyle='#e8e2d6';cx.beginPath();cx.moveTo(-10,-66);cx.quadraticCurveTo(-11,-50,0,-48);cx.quadraticCurveTo(11,-50,10,-66);cx.quadraticCurveTo(0,-60,-10,-66);cx.fill();
  cx.fillStyle='#1a1008';cx.beginPath();cx.arc(-4,-69,1.7,0,7);cx.arc(4,-69,1.7,0,7);cx.fill();cx.fillStyle='#e07a5a';cx.beginPath();cx.arc(0,-65,2.4,0,7);cx.fill();
@@ -376,22 +400,22 @@ function drawMe(t){const m=G.me,s=SC(),gy=groundY();const walking=Math.abs(m.wal
  cx.restore();
  const arm=(h,aim,kick,gun)=>{const sh=shoulder(h);cx.save();cx.translate(sh.x,sh.y);cx.rotate(aim);cx.translate(-kick*6,0);cx.scale(s,Math.cos(aim)<0?-s:s);
   cx.strokeStyle='#c0392b';cx.lineWidth=6;cx.lineCap='round';cx.beginPath();cx.moveTo(0,0);cx.lineTo(14,0);cx.stroke();cx.fillStyle='#f0bd88';cx.beginPath();cx.arc(15,0,3.5,0,7);cx.fill();
-  cx.translate(15,0);if(gun==='rif')gunRifle(cx);else gunSix(cx);cx.restore()};
- if(G.cur==='dbl')arm(1,m.aim2??m.aim,m.kick2,'six');
- arm(0,m.aim,m.kick,G.cur==='rif'?'rif':'six')}
-function drawCork(c){cx.save();cx.translate(c.x,c.y);cx.rotate(c.a+c.rot*.2);const k=c.big?1.5:1;cx.fillStyle='#d8a868';rr(-5*k,-4*k,10*k,8*k,3*k);cx.fill();cx.fillStyle='#b8884a';cx.fillRect(-1,-4*k,2,8*k);cx.restore()}
+  cx.translate(15,0);if(gun==='sg')gunShotgun(cx);else gunSix(cx);cx.restore()};
+ if(G.cur==='dbl'||G.cur==='dsg')arm(1,m.aim2??m.aim,m.kick2,G.cur==='dsg'?'sg':'six');
+ arm(0,m.aim,m.kick,G.cur==='sg'||G.cur==='dsg'?'sg':'six')}
+function drawCork(c){cx.save();cx.translate(c.x,c.y);cx.rotate(c.a+c.rot*.2);const k=c.pellet?.7:1;cx.fillStyle='#d8a868';rr(-5*k,-4*k,10*k,8*k,3*k);cx.fill();cx.fillStyle='#b8884a';cx.fillRect(-1,-4*k,2,8*k);cx.restore()}
 // ---------- bottom controls ----------
 let uiKey='';
 function updUI(force){const w=WDEF[G.cur],st=G.wpn[G.cur];
- const key=[G.cur,st.ammo,G.rl?1:0,G.rl?Math.round(G.rl.t*10):0,G.wpn.dbl.unl,G.wpn.rif.unl,G.pickups.length,G.wpn.six.ammo,G.wpn.dbl.ammo,G.wpn.rif.ammo,G.phase].join();if(!force&&key===uiKey)return;uiKey=key;
+ const key=[G.cur,st.ammo,G.rl?1:0,G.rl?Math.round(G.rl.t*10):0,G.wpn.dbl.unl,G.wpn.sg.unl,G.wpn.dsg.unl,G.pickups.length,G.wpn.six.ammo,G.wpn.dbl.ammo,G.wpn.sg.ammo,G.wpn.dsg.ammo,G.phase].join();if(!force&&key===uiKey)return;uiKey=key;
  document.querySelectorAll('.wp').forEach(b=>{const k=b.dataset.w,s=G.wpn[k],am=b.querySelector('.am');b.classList.toggle('on',k===G.cur);b.classList.toggle('lock',!s.unl);
   if(!s.unl){am.textContent=G.pickups.some(q=>q.k===k)?'✨ Tap it!':'🔒 '+UNLOCK[k].label;am.classList.add('lk')}else{am.innerHTML=WDEF[k].short+'<br><b style="font-size:14px">'+s.ammo+'/'+WDEF[k].mag+'</b>';am.classList.remove('lk')}});
  const rel=$('rel'),livex=G.phase==='defend'||G.phase==='chase';
  rel.classList.toggle('warn',st.ammo===0&&!G.rl&&livex);rel.classList.toggle('full',st.ammo>=w.mag&&!G.rl);
  $('relT').textContent=G.rl?'LOADING…':st.ammo===0?'RELOAD!':st.ammo>=w.mag?'FULL':'RELOAD';
  $('relP').style.width=G.rl?Math.round(100*st.ammo/w.mag)+'%':'0';
- const c=$('pips'),k=c.getContext('2d');k.clearRect(0,0,c.width,c.height);const n=w.mag,gap=c.width/n,cw=Math.min(30,gap*.8),ch=G.cur==='rif'?50:42;
- for(let i=0;i<n;i++){const x=gap*i+gap/2;k.fillStyle=i<st.ammo?'#d8a868':'#0004';krr(k,x-cw/2,(c.height-ch)/2,cw,ch,cw*.35);k.fill();if(i<st.ammo){k.fillStyle='#b8884a';k.fillRect(x-1.5,(c.height-ch)/2,3,ch)}}}
+ const c=$('pips'),k=c.getContext('2d');k.clearRect(0,0,c.width,c.height);const n=w.mag,gap=c.width/n,cw=Math.min(30,gap*.8),ch=42;const shell=!!w.pellets;
+ for(let i=0;i<n;i++){const x=gap*i+gap/2,y0=(c.height-ch)/2;if(shell){k.fillStyle=i<st.ammo?'#d0302a':'#0004';krr(k,x-cw/2,y0,cw,ch,4);k.fill();if(i<st.ammo){k.fillStyle='#e8c048';k.fillRect(x-cw/2,y0+ch*.68,cw,ch*.32)}}else{k.fillStyle=i<st.ammo?'#d8a868':'#0004';krr(k,x-cw/2,y0,cw,ch,cw*.35);k.fill();if(i<st.ammo){k.fillStyle='#b8884a';k.fillRect(x-1.5,y0,3,ch)}}}}
 // ---------- main loop ----------
 let lt=performance.now();
 function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();const t=now;const p=pile();
@@ -402,9 +426,10 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
   G.me.kick=Math.max(0,G.me.kick-dt*6);G.me.kick2=Math.max(0,G.me.kick2-dt*6);
  }
  if(G.phase==='defend'&&!G.paused){
-  G.el+=dt;$('tm').textContent='⏱ '+Math.max(0,Math.ceil(DEFEND_MAX-G.el));
-  WAVES.forEach((w,i)=>{if(i>G.wave&&G.el>=w[0]){G.wave=i;$('phase').textContent='🛡 Wave '+(i+1);call('Wave '+(i+1),i===1?'Fast ones and tough guys!':'Big gang + the boss!');SFX.whistle()}});
-  while(G.queue.length&&G.queue[0].at<=G.el)spawn(G.queue.shift());
+  G.el+=dt;
+  if(!G.waveOn){G.brk-=dt;$('wbC').textContent=Math.max(1,Math.ceil(G.brk));if(G.brk<=0)startWave(G.wave)}
+  else{G.waveT+=dt;while(G.queue.length&&G.queue[0].at<=G.waveT)spawn(G.queue.shift())}
+  $('tm').textContent=G.waveOn?'👥 '+(G.queue.length+G.robbers.filter(r=>r.state==='run').length)+' left':'⏳ Break '+Math.max(1,Math.ceil(G.brk));
   for(const r of G.robbers){r.t+=dt;if(r.fade<1)r.fade+=dt*2.5;
    if(r.state==='run'){if(r.stun>0){r.stun-=dt;continue}const dx=p.x-r.x,dy=(p.y-p.r*.1)-r.y,d=Math.hypot(dx,dy);r.face=dx>0?1:-1;const wob=Math.sin(r.t*3+r.wob)*.45;
     r.x+=(dx/d*Math.cos(wob)-dy/d*Math.sin(wob)*.5)*r.sp*dt;r.y+=(dy/d)*r.sp*dt;
@@ -413,8 +438,8 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
    else{r.x+=r.vx*dt;r.y+=r.vy*dt}}
   G.robbers=G.robbers.filter(r=>r.state==='run'||(r.x>-90&&r.x<W+90&&r.y>-140&&r.y<H+100));
   const running=G.robbers.some(r=>r.state==='run');
-  if((!G.queue.length&&!running&&G.el>BOSS_AT+1)||G.el>=DEFEND_MAX){G.robbers.forEach(r=>{if(r.state==='run'){r.state='scared';r.vx=(r.x<W/2?-1:1)*280;r.vy=-80}});
-   G.phase='pause';G.rl=null;if(G.escaped.length)setTimeout(startChase,1000);else{call('Not one got through!');setTimeout(endGame,1400)}}
+  if(G.el>=DEFEND_MAX)endDefend();
+  else if(G.waveOn&&!G.queue.length&&!running){if(G.wave>=WAVES.length-1)endDefend();else{G.waveOn=false;G.wave++;G.brk=BREAK_S;waveBanner(G.wave,false)}}
  }
  if(G.phase==='pause'){for(const r of G.robbers)if(r.state!=='run'){r.x+=r.vx*dt;r.y+=r.vy*dt}for(const c of G.chasers)if(c.state==='scared'){c.x+=c.vx*dt;c.y+=c.vy*dt}}
  if(G.phase==='chase'){G.t-=dt;$('tm').textContent='⏱ '+Math.max(0,Math.ceil(G.t));let alive=0;
@@ -428,8 +453,8 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
   c.x+=Math.cos(c.a)*c.sp*dt;c.y+=Math.sin(c.a)*c.sp*dt;
   const list=G.phase==='chase'?G.chasers.filter(r=>r.state==='flee'):G.robbers.filter(r=>r.state==='run');
   const hit=list.find(r=>Math.abs(r.x-c.x)<14*r.scale*(r.type==='tough'?1.2:1)+3&&c.y>r.y-88*r.scale&&c.y<r.y-4);
-  if(hit){c.dead=1;if(G.phase==='chase')catchChaser(hit,c.x,c.y);else hitRobber(hit,c.dmg,c.x,c.y)}
-  else if(c.x<-20||c.x>W+20||c.y<-20||c.life<=0){c.dead=1;if(c.y>0&&c.x>0&&c.x<W){puff(c.x,c.y,.6);G.fx.push({x:c.x,y:c.y-8,txt:'miss',col:'#ddd',sz:13,life:.5})}}}
+  if(hit){c.dead=1;const b=c.blast;let cnt=true;if(b){cnt=!b.hit;b.hit=true;if(hit.type==='boss'&&G.phase!=='chase'){if(b.boss>=b.cap){puff(c.x,c.y,.5);continue}b.boss++}}if(G.phase==='chase')catchChaser(hit,c.x,c.y,cnt);else hitRobber(hit,c.dmg,c.x,c.y,cnt)}
+  else if(c.x<-20||c.x>W+20||c.y<-20||c.life<=0){c.dead=1;if(c.y>0&&c.x>0&&c.x<W){puff(c.x,c.y,c.pellet?.35:.6);if(!c.pellet)G.fx.push({x:c.x,y:c.y-8,txt:'miss',col:'#ddd',sz:13,life:.5})}}}
  G.corks=G.corks.filter(c=>!c.dead);
  // draw
  drawBg(t);
@@ -451,7 +476,7 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
  G.fx=G.fx.filter(f=>f.life>0);
  updUI();
  requestAnimationFrame(frame)}
-function catchChaser(c,x,y){if(c.state!=='flee')return;c.state='scared';G.hits++;G.recovered+=c.amt;G.caught++;SFX.bonk();SFX.coin(G.caught);puff(x,y,1.2);if(c.hat){c.hat=false;hatFly(c)}
+function catchChaser(c,x,y,countHit=true){if(c.state!=='flee')return;c.state='scared';if(countHit)G.hits++;G.recovered+=c.amt;G.caught++;SFX.bonk();SFX.coin(G.caught);puff(x,y,1.2);if(c.hat){c.hat=false;hatFly(c)}
  float(c.x,c.y-90*c.scale,'+'+c.amt+' oz','#9cf07a',22);c.vx=-c.dir*60;c.vy=-260;G.sacks.push({x:c.x,y:c.y-55*c.scale,tx:W/2,ty:-20,t:0,boss:c.type==='boss'});setHud()}
 size();drawIcons();intro();setHud();updUI(true);requestAnimationFrame(frame);
 </script></body></html>
