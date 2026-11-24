@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Gold Robbers v6 – Gold Fever Frenzy preview</title>
+<title>Gold Robbers v7 – Gold Fever Frenzy preview</title>
 <meta name="theme-color" content="#2a1a0e">
 <meta name="robots" content="noindex">
 <style>
@@ -98,18 +98,18 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
   </div>
   <button id="rel" aria-label="Reload"><span id="relT">RELOAD</span><canvas id="pips" width="450" height="60"></canvas><i id="relP"></i></button>
  </div>
- <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v6</div>
+ <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold · Preview v7</div>
 </div>
 <script>
 const $=id=>document.getElementById(id);
-const START_OZ=1200,BOUGHT_OZ=300,CAP=Math.round(START_OZ*.10),PERFECT_BONUS=25;
+const START_OZ=1200,BOUGHT_OZ=300,CAP=Math.round(START_OZ*.10),PERFECT_BONUS=25,SKIP_OZ=Math.round(START_OZ*.15); // skipping costs 15% of EARNED gold only, never bought gold
 const TAKE={norm:15,fast:15,tough:20,boss:30};
 const DEFEND_MAX=95,CHASE_S=10;
 const WDEF={
  six:{name:'Six-shooter',short:'Six-gun',mag:6,cool:.15,dmg:1,sp:950,base:.3,per:.2,seek:.3},
  dbl:{name:'Double Six-Shooters',short:'Doubles',mag:12,cool:.075,dmg:1,sp:950,base:.45,per:.2,seek:.3},
- sg:{name:'Cork Shotgun',short:'Shotgun',mag:6,cool:.45,dmg:1,sp:1000,base:.6,per:.48,seek:0,pellets:4,spread:.2,perShot:1,bossCap:2},
- dsg:{name:'Double Shotguns',short:'2x Shotgun',mag:12,cool:.55,dmg:1,sp:1000,base:.7,per:.33,seek:0,pellets:4,spread:.24,perShot:2,bossCap:3}};
+ sg:{name:'Cork Shotgun',short:'Shotgun',mag:6,cool:.45,dmg:1,sp:480,base:.6,per:.48,seek:0,pellets:4,spread:.56,perShot:1,bossCap:2},
+ dsg:{name:'Double Shotguns',short:'2x Shotgun',mag:12,cool:.55,dmg:1,sp:480,base:.7,per:.33,seek:0,pellets:4,spread:.56,perShot:2,bossCap:3}};
 const UNLOCK={dbl:{stop:8,wave:1,label:'Stop 8'},sg:{stop:18,wave:2,label:'Stop 18'},dsg:{stop:30,wave:2,label:'Stop 30',needs:'sg'}};
 // each wave arrives in groups; a short break between waves (time to reload)
 const WAVES=[{g:[3,3,4],gap:3.0,fast:1,tough:0,sub:'Here they come!'},{g:[4,5,5],gap:2.7,fast:4,tough:3,sub:'Fast ones and tough guys!'},{g:[4,4,5,5],gap:2.4,fast:5,tough:5,boss:1,sub:'Big gang + the boss!'}];
@@ -134,7 +134,7 @@ const SFX={
  boss:()=>{[196,185,175,165].forEach((f,i)=>tone(f,.22,'sawtooth',.05,0,i*.18))},
  win:()=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,.25,'square',.06,0,i*.12))},
  click:()=>tone(880,.05,'square',.04)};
-function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=6').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
+function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v=7').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
 function voice(k){if(muted||!AC)return;const p=vload(k);if(p)p.then(buf=>{if(muted)return;const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=1.1;s.buffer=buf;s.connect(g);g.connect(AC.destination);s.start()}).catch(()=>{})}
 $('snd').onclick=()=>{muted=!muted;$('snd').textContent=muted?'🔇':'🔊'};
 
@@ -146,7 +146,7 @@ const groundY=()=>H-12;
 const SC=()=>Math.max(1.0,Math.min(1.4,W/310));
 
 let G=null;window.__G=()=>G;
-function fresh(){return{phase:'intro',t:0,el:0,paused:false,robbers:[],corks:[],sacks:[],fx:[],puffs:[],hats:[],stolen:0,stopped:0,tough:0,escaped:[],recovered:0,caught:0,queue:[],chasers:[],shots:0,hits:0,
+function fresh(){return{phase:'intro',t:0,el:0,paused:false,robbers:[],corks:[],sacks:[],fx:[],puffs:[],flash:[],hats:[],stolen:0,stopped:0,tough:0,escaped:[],recovered:0,caught:0,queue:[],chasers:[],shots:0,hits:0,
  wpn:{six:{ammo:6,unl:true},dbl:{ammo:12,unl:false},sg:{ammo:6,unl:false},dsg:{ammo:12,unl:false}},pickups:[],drops:{},dropWait:{},missedPicks:0,cur:'six',rl:null,cool:0,hand:0,unlocked:[],
  me:{x:W/2||180,aim:-Math.PI/2,kick:0,kick2:0,walk:0},bossDone:false,wave:0,waveOn:false,waveT:0,brk:2.2,pileF:1}}
 G=fresh();
@@ -167,12 +167,14 @@ function intro(){
  $('ctl').classList.add('off');
  $('card').innerHTML=`<div class="pros">🤠</div><h2>Gold Robbers!</h2>
  <p><b>Every 15 levels</b> an outlaw gang comes for your gold!</p>
- <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts!<br>🔄 Out of corks? Hit the big <b>RELOAD</b> button (anytime to top up).<br>⭐ Stop enough robbers and a glowing <b>upgrade</b> floats up. <b>Tap it</b> to grab Double Six-Shooters, a Cork Shotgun, then Double Shotguns!<br>💪 <b>Tough</b> guys: 2 hits or 1 shotgun blast. <b>Boss</b>: 4 hits or 2 blasts.<br>🌊 <b>3 waves</b>, with a short break to reload.<br>↔️ Drag along the bottom to move.</div>
+ <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts! Out of corks? Hit <b>RELOAD</b>.<br>⭐ Stop robbers and <b>tap the glowing upgrade</b>: Double Six-Shooters, Cork Shotgun, then Double Shotguns!<br>💪 <b>Tough</b> guys: 2 hits or 1 shotgun blast. <b>Boss</b>: 4 hits or 2 blasts.<br>🌊 <b>3 waves</b> with breaks to reload. ↔️ Drag along the bottom to move.</div>
  <div class="row"><span>Gold you dug</span><b>${START_OZ.toLocaleString()} oz</b></div>
  <div class="row"><span>Most they can take (10%)</span><b>${CAP} oz</b></div>
  <p class="note">🔒 Robbers can't touch gold you bought (your ${BOUGHT_OZ} oz is safe).</p>
- <button class="btn g big" id="go">Defend my gold!</button>`;
+ <div style="display:flex;gap:8px;align-items:stretch"><button class="btn g big" id="go" style="flex:2;margin:0">Defend my gold!</button>
+ <button class="btn" id="skip" style="flex:1;margin:0;background:#0005;color:#fff7e0;border:1px solid #c8962e88;font-weight:800;padding:6px;font-size:13px;line-height:1.2">Skip<br><span style="color:#ff9a7a">lose 15% of dug gold (${SKIP_OZ} oz)</span></button></div>`;
  $('ov').classList.add('on');$('go').onclick=()=>{audioInit();if(AC&&AC.state==='suspended')AC.resume();['smokes','win1','hoser','close1','strike'].forEach(vload);SFX.click();startDefend()};
+ $('skip').onclick=()=>{SFX.click();skipGame()};
 }
 function startDefend(){G=fresh();G.phase='defend';G.queue=[];$('ov').classList.remove('on');$('ctl').classList.remove('off');size();drawIcons();G.me.x=W/2;$('phase').textContent='🛡 Wave 1';setHud();updUI(true);waveBanner(0,true);voice('smokes')}
 
@@ -222,8 +224,9 @@ function shoot(tx,ty){
  if(w.pellets){const use=Math.min(w.perShot,st.ammo);st.ammo-=use;G.cool=w.cool;G.shots++;const hands=G.cur==='dsg'?(use===2?[0,1]:[G.hand^=1]):[0];const blast={hit:false,boss:0,cap:use===2?w.bossCap:2};
   for(const h of hands){const sh=shoulder(h);let a=Math.atan2(ty-sh.y,tx-sh.x);if(a>-.15&&a<Math.PI/2)a=-.15;else if(a>=Math.PI/2||a<-Math.PI+.15)a=-Math.PI+.15;
    if(h){G.me.aim2=a;G.me.kick2=1.4}else{G.me.aim=a;G.me.kick=1.4;if(G.cur!=='dsg')G.me.aim2=a}
-   const len=40*SC(),mx=sh.x+Math.cos(a)*len,my=sh.y+Math.sin(a)*len;puff(mx,my,1.2);
-   for(let i=0;i<w.pellets;i++){const off=(i/(w.pellets-1)-.5)*w.spread+(Math.random()-.5)*.03;G.corks.push({x:mx,y:my,a:a+off,sp:w.sp*(0.95+Math.random()*.1),dmg:1,seek:null,turn:0,life:.62,rot:Math.random()*6,pellet:1,blast})}}
+   const len=40*SC(),mx=sh.x+Math.cos(a)*len,my=sh.y+Math.sin(a)*len;puff(sh.x+Math.cos(a)*len*.7,sh.y+Math.sin(a)*len*.7,.55);G.flash.push({x:mx,y:my,a:hands.length===2?a+(h?.21:-.21):a,spread:hands.length===2?w.spread*.75:w.spread,n:w.pellets,life:.18});
+   // 4 corks fan out from the muzzle: start already a little apart so you see 4 separate corks right away
+   const both=hands.length===2;for(let i=0;i<w.pellets;i++){const off=both?((h*w.pellets+i)/(2*w.pellets-1)-.5)*w.spread*1.5:(i/(w.pellets-1)-.5)*w.spread;const aa=a+off+(Math.random()-.5)*.02,st0=14*SC();G.corks.push({x:mx+Math.cos(aa)*st0,y:my+Math.sin(aa)*st0,a:aa,sp:w.sp*SC()*(0.96+Math.random()*.08),dmg:1,seek:null,turn:0,life:1.1,rot:Math.random()*6,pellet:1,blast,trail:[]})}}
   SFX.shotgun();G.fx.push({x:G.me.x,y:groundY()-125*SC(),txt:'PA-POW!',col:'#fff',sz:16,life:.5});updUI();return true}
  const h=G.cur==='dbl'?(G.hand^=1):0;const sh=shoulder(h);
  let a=Math.atan2(ty-sh.y,tx-sh.x);if(a>-.15&&a<Math.PI/2)a=-.15;else if(a>=Math.PI/2||a<-Math.PI+.15)a=-Math.PI+.15;
@@ -234,6 +237,7 @@ function shoot(tx,ty){
  G.corks.push({x:mx,y:my,a,sp:w.sp,dmg:w.dmg,seek:seekAt(tx,ty),turn:w.seek,life:1.3,rot:0});
  updUI();return true}
 // mild help: a cork steers a little toward the robber you tapped near, so aim still matters
+function robberUnder(x,y){const list=G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run');return list.find(r=>Math.abs(r.x-x)<(16*(r.type==='tough'?1.2:1)+6)*r.scale&&y>r.y-95*r.scale&&y<r.y+4)}
 function seekAt(x,y){const list=G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run');let best=null,bd=1e9;
  for(const r of list){const R=26*r.scale,dx=r.x-x,dy=(r.y-45*r.scale)-y,d=dx*dx+dy*dy;if(d<R*R&&d<bd){bd=d;best=r}}return best}
 // upgrades drop as a glowing pickup from the robber who earned it; tap it to collect (no ammo, not a shot)
@@ -250,7 +254,7 @@ function collectPickup(q){G.pickups=G.pickups.filter(x=>x!==q);const k=q.k,w=WDE
  if(k==='dbl'){switchTo('dbl');bub('Yeehaw! Double the corks!',1600)}else if(k==='sg')bub('Tap Shotgun below. Great for tough guys!',2200);else{if(G.cur==='sg')switchTo('dsg');bub('Double Shotguns! 8 corks a blast!',2200)}
  const b=document.querySelector(`.wp[data-w="${k}"]`);b.classList.remove('new');void b.offsetWidth;b.classList.add('new');updUI(true)}
 let toastTO;function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toastTO);toastTO=setTimeout(()=>e.classList.remove('on'),2200)}
-function pickupAt(x,y){const R=40*SC();return G.pickups.find(q=>q.t>.35&&Math.hypot(q.x-x,q.y-y)<R)} // short grace so a quick second shot at the same robber doesn't grab it by accident
+function pickupAt(x,y){const R=34*SC();return G.pickups.find(q=>q.t>.35&&Math.hypot(q.x-x,q.y-y)<R)} // short grace so a quick second shot at the same robber doesn't grab it by accident
 function drawPickups(t){for(const q of G.pickups){const left=q.life-q.t;let a=1;if(left<2)a=Math.sin(q.t*22)>0?1:.25;if(q.t<.3)a*=q.t/.3;
  const R=30*SC()*(1+.06*Math.sin(t/150));cx.save();cx.globalAlpha=a;
  const g=cx.createRadialGradient(q.x,q.y,R*.2,q.x,q.y,R*1.7);g.addColorStop(0,'#fff8c0cc');g.addColorStop(.55,'#ffd34d66');g.addColorStop(1,'#ffd34d00');cx.fillStyle=g;cx.beginPath();cx.arc(q.x,q.y,R*1.7,0,7);cx.fill();
@@ -268,7 +272,9 @@ function updPickups(dt){for(const q of G.pickups){q.t+=dt;q.vy+=(-10-q.vy)*Math.
 let drag=false;
 function pt(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
 cv.addEventListener('pointerdown',e=>{e.preventDefault();if(!live())return;const p=pt(e);
- const pk=pickupAt(p.x,p.y);if(pk){const rb=seekAt(p.x,p.y);if(!rb||Math.hypot(rb.x-p.x,rb.y-45*rb.scale-p.y)>Math.hypot(pk.x-p.x,pk.y-p.y)){collectPickup(pk);return}}
+ const pk=pickupAt(p.x,p.y);if(pk){const onRob=robberUnder(p.x,p.y),dpk=Math.hypot(pk.x-p.x,pk.y-p.y);
+  // only grab the bubble when the tap is on it and NOT on a robber (a dead-center tap on the bubble always grabs it)
+  if(!onRob||dpk<16*SC()){collectPickup(pk);return}}
  if(p.y>H-80&&!seekAt(p.x,p.y)){drag=true;G.me.tx=Math.max(60,Math.min(W-60,p.x));return}
  shoot(p.x,p.y)});
 cv.addEventListener('pointermove',e=>{if(drag)G.me.tx=Math.max(60,Math.min(W-60,pt(e).x))});
@@ -283,6 +289,15 @@ function startChase(){
  G.escaped.forEach((e,i)=>{const dir=i%2?-1:1,s=SC()*(e.type==='boss'?1.3:e.type==='tough'?1.1:1),lane=top+span*((i%5)+.5)/5;
   G.chasers.push({type:e.type,x:dir>0?-50-i*70:W+50+i*70,y:lane,y0:lane,dir,amt:e.amt,sp:(205+Math.random()*65)*(W/390),turns:1,state:'flee',ph:Math.random()*6,scale:s,coat:e.coat,band:e.band,vest:e.vest,hat:true,face:dir,maxhp:1,hp:1})});
  setHud();updUI()}
+function skipGame(){G.phase='done';$('ctl').classList.add('off');
+ $('card').innerHTML=`<div class="pros">🐎</div><h2>You skipped the robbers</h2>
+ <p>The gang rode off with 15% of the gold you dug.</p>
+ <div class="row"><span>Gold you dug</span><b>${START_OZ.toLocaleString()} oz</b></div>
+ <div class="row"><span>Lost by skipping (15%)</span><b style="color:#ff8a6a">−${SKIP_OZ} oz</b></div>
+ <div class="row"><span>You keep</span><b>${(START_OZ-SKIP_OZ).toLocaleString()} oz</b></div>
+ <p class="note">🔒 Your ${BOUGHT_OZ} oz of bought gold was never at risk. Playing can lose at most 10% (${CAP} oz), and you can win it back.</p>
+ <button class="btn g big" id="again">Play again</button>`;
+ $('ov').classList.add('on');$('again').onclick=()=>{SFX.click();G=fresh();intro()}}
 function endGame(){
  G.phase='done';$('phase').textContent='🏁 Results';$('tm').textContent='⏱ 0';$('ctl').classList.add('off');size();$('pop').classList.remove('on');
  const lost=G.stolen-G.recovered,perfect=G.stolen===0,bonus=perfect?PERFECT_BONUS:0,keep=START_OZ-lost+bonus,acc=G.shots?Math.round(G.hits/G.shots*100):0;
@@ -403,7 +418,8 @@ function drawMe(t){const m=G.me,s=SC(),gy=groundY();const walking=Math.abs(m.wal
   cx.translate(15,0);if(gun==='sg')gunShotgun(cx);else gunSix(cx);cx.restore()};
  if(G.cur==='dbl'||G.cur==='dsg')arm(1,m.aim2??m.aim,m.kick2,G.cur==='dsg'?'sg':'six');
  arm(0,m.aim,m.kick,G.cur==='sg'||G.cur==='dsg'?'sg':'six')}
-function drawCork(c){cx.save();cx.translate(c.x,c.y);cx.rotate(c.a+c.rot*.2);const k=c.pellet?.7:1;cx.fillStyle='#d8a868';rr(-5*k,-4*k,10*k,8*k,3*k);cx.fill();cx.fillStyle='#b8884a';cx.fillRect(-1,-4*k,2,8*k);cx.restore()}
+function drawCork(c){if(c.pellet){if(c.px!=null){cx.strokeStyle='#fff3d055';cx.lineWidth=3;cx.lineCap='round';cx.beginPath();cx.moveTo(c.px,c.py);cx.lineTo(c.x,c.y);cx.stroke()}c.px=c.x-Math.cos(c.a)*6;c.py=c.y-Math.sin(c.a)*6}
+ cx.save();cx.translate(c.x,c.y);cx.rotate(c.a+c.rot*.2);const k=c.pellet?1.15:1;if(c.pellet){cx.fillStyle='#3a2205';rr(-6*k,-5*k,12*k,10*k,3.5*k);cx.fill()}cx.fillStyle='#d8a868';rr(-5*k,-4*k,10*k,8*k,3*k);cx.fill();cx.fillStyle='#b8884a';cx.fillRect(-1,-4*k,2,8*k);cx.restore()}
 // ---------- bottom controls ----------
 let uiKey='';
 function updUI(force){const w=WDEF[G.cur],st=G.wpn[G.cur];
@@ -467,6 +483,8 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
  for(const h of G.hats){if(!G.paused){h.vy+=600*dt;h.x+=h.vx*dt;h.y+=h.vy*dt;h.rot+=h.vr*dt;h.life-=dt}cx.save();cx.globalAlpha=Math.max(0,Math.min(1,h.life*2));cx.translate(h.x,h.y);cx.rotate(h.rot);cx.scale(h.s,h.s);cx.translate(0,76);drawHat(h.col,false);cx.restore()}
  G.hats=G.hats.filter(h=>h.life>0);
  for(const c of G.corks)drawCork(c);
+ for(const f of G.flash){f.life-=dt;const k=Math.max(0,f.life/.18),L=40*SC()*(1.3-k*.3);cx.save();cx.globalAlpha=k;for(let i=0;i<f.n;i++){const aa=f.a+(i/(f.n-1)-.5)*f.spread;cx.fillStyle=i%2?'#ffd34d':'#ff9a2a';cx.beginPath();cx.moveTo(f.x,f.y);cx.lineTo(f.x+Math.cos(aa-.07)*L,f.y+Math.sin(aa-.07)*L);cx.lineTo(f.x+Math.cos(aa)*L*1.25,f.y+Math.sin(aa)*L*1.25);cx.lineTo(f.x+Math.cos(aa+.07)*L,f.y+Math.sin(aa+.07)*L);cx.fill()}cx.fillStyle='#fff6c0';cx.beginPath();cx.arc(f.x,f.y,7*SC(),0,7);cx.fill();cx.restore()}
+ G.flash=G.flash.filter(f=>f.life>0);
  drawPickups(t);
  for(const q of G.puffs){if(!G.paused){q.life-=dt;q.r+=q.vr*dt}cx.globalAlpha=Math.max(0,q.life*1.6);cx.fillStyle='#fff';cx.beginPath();cx.arc(q.x,q.y,q.r,0,7);cx.fill()}cx.globalAlpha=1;
  G.puffs=G.puffs.filter(q=>q.life>0);
