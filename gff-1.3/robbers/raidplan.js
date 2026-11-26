@@ -116,7 +116,19 @@ function table(maxR){
   }
   return rows;
 }
-const api={raidNum,waveCount,levelOf,ease,speedMul,gapMul,wobbleMul,defendMax,TAKE,TYPE_HP,TYPE_SPD,BREAK_S,waveDef,blurb,introLine,buildWaves,counts,plan,table};
+// Dynamite: free in-raid drops (never sold, no random paid items). Shared by the mini-game and the sim.
+// The wave/speed/density ramp above is unchanged; dynamite is the late-raid helper.
+const DYN={cap:5,radius:110,dmg:4,cool:.55,fly:.4};
+function dynChance(r,type){
+  r=Math.max(1,+r||1);
+  // Brutes (from raid 7) always drop a stick. Bosses always drop from raid 10 on.
+  if(type==='brute')return 1;
+  if(type==='boss')return r>=10?1:r>=7?0.6:0.25;
+  // Regulars: a rare surprise early (so raids 1-6 feel familiar), then a gentle late ramp.
+  const t=Math.max(0,Math.min(1,(r-6)/16));
+  return +(0.03+0.15*t*t).toFixed(3);
+}
+const api={raidNum,waveCount,levelOf,ease,speedMul,gapMul,wobbleMul,defendMax,TAKE,TYPE_HP,TYPE_SPD,BREAK_S,waveDef,blurb,introLine,buildWaves,counts,plan,table,DYN,dynChance};
 if(typeof module==='object'&&module.exports)module.exports=api;
 root.GFFRaid=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -21,21 +21,28 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
 #bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff9a3a,#e0402a);transition:width .2s}
 #wrap{flex:1;position:relative;min-height:0}
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
-#ctl{display:flex;gap:6px;align-items:stretch;padding:6px 8px;background:linear-gradient(#3b2614,#2a1a0e);border-top:2px solid #5a3a1c}
-#wps{display:flex;gap:4px;flex:1.9}
+#ctl{display:flex;gap:5px;align-items:stretch;padding:6px 6px;background:linear-gradient(#3b2614,#2a1a0e);border-top:2px solid #5a3a1c}
+#wps{display:flex;gap:3px;flex:1;min-width:0}
 .wp{flex:1;min-width:0;border-radius:12px;border:2px solid #5a3a1c;background:#0006;color:#fff7e0;font-family:inherit;font-weight:800;font-size:10.5px;line-height:1.1;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;position:relative}
-.wp canvas{width:44px;height:26px}
+.wp canvas{width:40px;height:24px}
 .wp.on{border-color:#ffd34d;background:#6a4a00;box-shadow:0 0 10px #ffb00088}
 .wp.lock{opacity:.55}.wp.lock canvas{filter:grayscale(1) brightness(.6)}
 .wp .lk{font-size:10px;font-weight:700;opacity:.9}
 .wp.new{animation:pulse .5s 6 alternate}
 @keyframes pulse{to{transform:scale(1.1)}}
-#rel{flex:1;min-width:104px;border:none;border-radius:16px;background:linear-gradient(#ffd34d,#e09a12);color:#3a2205;font-family:inherit;font-weight:900;font-size:21px;box-shadow:0 4px 0 #8a5a08;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;min-height:68px;position:relative;overflow:hidden}
+#rel{flex:0 0 90px;min-width:88px;border:none;border-radius:16px;background:linear-gradient(#ffd34d,#e09a12);color:#3a2205;font-family:inherit;font-weight:900;font-size:21px;box-shadow:0 4px 0 #8a5a08;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;min-height:68px;position:relative;overflow:hidden}
 #rel:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5a08}
 #rel canvas{width:100%;max-width:150px;height:20px;margin-top:3px}
 #rel i{position:absolute;left:0;bottom:0;height:5px;background:#3a2205;width:0}
 #rel.warn{background:linear-gradient(#ff7a5a,#c0301a);color:#fff;animation:warn .35s infinite alternate;box-shadow:0 4px 0 #6a1408}
 #rel.full{filter:saturate(.75) brightness(.92)}
+#dyn{flex:0 0 62px;min-width:60px;border:none;border-radius:16px;background:linear-gradient(#4a2a18,#2a160c);color:#fff7e0;font-family:inherit;font-weight:900;font-size:11px;line-height:1.05;box-shadow:0 4px 0 #1a0c08;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3px 2px 4px;position:relative;opacity:.45}
+#dyn.ready{opacity:1;background:linear-gradient(#ef4a28,#b01810);color:#fff;box-shadow:0 4px 0 #6a0808;animation:pulse .55s 8 alternate}
+#dyn:active{transform:translateY(3px);box-shadow:0 1px 0 #6a0808}
+#dyn.aiming{box-shadow:0 0 0 3px #ffd34d,0 4px 0 #6a0808}
+#dyn canvas{width:38px;height:30px;pointer-events:none}
+#dyn .n{font-size:18px;font-weight:900}
+#dyn.empty .n{opacity:.6}
 @keyframes warn{to{transform:scale(1.05)}}
 #foot{text-align:center;font-size:11.5px;opacity:.8;padding:3px 8px calc(4px + env(safe-area-inset-bottom));background:#2a1a0e}
 .btn{background:linear-gradient(#ffd34d,#e09a12);color:#3a2205;border:none;border-radius:14px;padding:14px 22px;font-weight:800;font-size:19px;box-shadow:0 4px 0 #8a5a08;cursor:pointer;font-family:inherit}
@@ -46,16 +53,16 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
 .ov{position:absolute;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:20;padding:6px}
 .ov.on{display:flex}
 #pop{z-index:25;background:#0009}
-.card{background:linear-gradient(#4a3018,#2a1a0e);border:3px solid #c8962e;border-radius:20px;padding:14px;width:92%;max-width:400px;text-align:center;max-height:98%;overflow:auto}
+.card{background:linear-gradient(#4a3018,#2a1a0e);border:3px solid #c8962e;border-radius:20px;padding:10px 12px;width:92%;max-width:400px;text-align:center;max-height:98%;overflow:auto}
 #popC{animation:popin .35s ease-out;border-color:#ffd34d;box-shadow:0 0 30px #ffb000aa}
 @keyframes popin{from{transform:scale(.4);opacity:0}}
 .card h2{margin:2px 0 6px;color:#ffd34d;font-size:26px}
-.card p{margin:5px 0;font-size:16px;line-height:1.35}
+.card p{margin:4px 0;font-size:15.5px;line-height:1.32}
 .row{display:flex;align-items:center;justify-content:space-between;background:#0005;border-radius:12px;padding:6px 11px;margin:4px 0;text-align:left;gap:8px;font-size:15px}
 .row b{font-size:17px;white-space:nowrap}
 .row.tot{background:#3e8f1f66;border:1px solid #9cf07a88}
 .note{font-size:13px;opacity:.85;margin:6px 0 10px}
-.how{text-align:left;background:#0005;border-radius:12px;padding:7px 11px;font-size:14px;line-height:1.38;margin:6px 0}
+.how{text-align:left;background:#0005;border-radius:12px;padding:6px 9px;font-size:13px;line-height:1.34;margin:5px 0}
 .pros{font-size:36px;line-height:1}
 #call{position:absolute;left:0;right:0;top:30%;text-align:center;font-size:40px;font-weight:900;color:#ffd34d;text-shadow:0 3px 0 #7a4a00,0 0 20px #ff9800;pointer-events:none;opacity:0;z-index:10}
 #call small{display:block;font-size:20px;color:#fff7e0}
@@ -75,7 +82,7 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
 @media (max-width:400px){.pill{font-size:12.5px;padding:4px 7px}#snd{font-size:18px!important;padding:2px 2px!important}}
 #snd{background:none;border:none;font-size:20px;padding:2px 6px;color:#fff}
 #ctl.off{display:none}
-@media (max-height:700px){.pros{font-size:24px}.card h2{font-size:22px;margin:0 0 4px}.row{padding:4px 10px;margin:3px 0}.card p{font-size:14.5px;margin:3px 0}.btn.big{padding:12px}#hud .big{font-size:17px}.how{font-size:12.5px;line-height:1.3}.note{margin:4px 0 6px}#rel{min-height:58px;font-size:19px}.wp canvas{height:24px}}
+@media (max-height:700px){.pros{font-size:24px}.card h2{font-size:22px;margin:0 0 4px}.row{padding:4px 10px;margin:3px 0}.card p{font-size:14.5px;margin:3px 0}.btn.big{padding:12px}#hud .big{font-size:17px}.how{font-size:12.5px;line-height:1.3}.note{margin:4px 0 6px}#rel{min-height:58px;font-size:19px}.wp canvas{height:24px}#dyn{min-width:64px;flex-basis:68px}}
 </style></head><body>
 <div id="app">
  <div class="top"><span class="pill" id="lvP">⛏️ Level 15</span><span class="pill" id="phase">🤠 Gold Robbers</span><span class="pill" id="tm">⏱ 40</span><button id="snd" aria-label="Sound on/off">🔊</button></div>
@@ -96,9 +103,10 @@ html,body{margin:0;height:100%;background:#1b120a;color:#fff7e0;font-family:-app
    <button class="wp lock" data-w="sg"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 18</span></button>
    <button class="wp lock" data-w="dsg"><canvas width="156" height="90"></canvas><span class="am lk">🔒 Stop 30</span></button>
   </div>
+  <button id="dyn" aria-label="Throw dynamite" class="empty"><canvas width="114" height="90"></canvas><span class="n" id="dynN">0</span><span>Dynamite</span></button>
   <button id="rel" aria-label="Reload"><span id="relT">RELOAD</span><canvas id="pips" width="450" height="60"></canvas><i id="relP"></i></button>
  </div>
- <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades are earned in play, never sold </div>
+ <div id="foot">🔒 Robbers can't touch gold you bought · Upgrades and dynamite are earned in play, never sold </div>
 </div>
 <script src="raidplan.js"></script>
 <script>
@@ -141,7 +149,8 @@ const SFX={
  whistle:()=>{tone(1200,.18,'sine',.06,600);tone(1800,.25,'sine',.05,-700,.2)},
  boss:()=>{[196,185,175,165].forEach((f,i)=>tone(f,.22,'sawtooth',.05,0,i*.18))},
  win:()=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,.25,'square',.06,0,i*.12))},
- click:()=>tone(880,.05,'square',.04)};
+ click:()=>tone(880,.05,'square',.04),
+ boom:()=>{noise(.35,.55,0,280,'lowpass');noise(.18,.4,0,1400,'bandpass');tone(180,.35,'sawtooth',.08,-120);tone(520,.12,'square',.05,-300);[1046,1318,1568].forEach((f,i)=>tone(f,.08,'sine',.04,0,.04*i))}};
 function vload(k){if(vbuf[k]||!AC)return vbuf[k];vbuf[k]=fetch(k+'.mp3?v='+VER).then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no)));vbuf[k].catch(()=>{vbuf[k]=null});return vbuf[k]}
 function voice(k){if(muted||!AC)return;const p=vload(k);if(p)p.then(buf=>{if(muted)return;const s=AC.createBufferSource(),g=AC.createGain();g.gain.value=1.1;s.buffer=buf;s.connect(g);g.connect(AC.destination);s.start()}).catch(()=>{})}
 $('snd').onclick=()=>{muted=!muted;$('snd').textContent=muted?'🔇':'🔊'};
@@ -156,6 +165,7 @@ const SC=()=>Math.max(1.0,Math.min(1.4,W/310));
 let G=null;window.__G=()=>G;
 function fresh(){return{phase:'intro',t:0,el:0,paused:false,robbers:[],corks:[],sacks:[],fx:[],puffs:[],flash:[],hats:[],stolen:0,stopped:0,tough:0,escaped:[],recovered:0,caught:0,queue:[],chasers:[],shots:0,hits:0,
  wpn:{six:{ammo:6,unl:true},dbl:{ammo:12,unl:false},sg:{ammo:6,unl:false},dsg:{ammo:12,unl:false}},pickups:[],drops:{},dropWait:{},missedPicks:0,cur:'six',rl:null,cool:0,hand:0,unlocked:[],
+ dyn:0,dynCool:0,dynSeen:0,bombs:[],booms:[],dynFlies:[],dynAim:null,
  me:{x:W/2||180,aim:-Math.PI/2,kick:0,kick2:0,walk:0},bossDone:false,wave:0,waveOn:false,waveT:0,brk:2.2,pileF:1}}
 G=fresh();
 function buildWave(wi){const w=WAVES[wi],tot=w.g.reduce((a,b)=>a+b,0),idx=[...Array(tot)].map((_,i)=>i).sort(()=>Math.random()-.5);
@@ -175,12 +185,10 @@ let bubTO;function bub(t,ms=2000){$('bubT').textContent=t;$('bub').classList.add
 function float(x,y,txt,col='#ffd34d',sz=20){x=Math.max(50,Math.min(W-50,x));y=Math.max(24,y);G.fx.push({x,y,txt,col,sz,life:1})}
 
 function intro(){
- $('ctl').classList.add('off');
+ $('ctl').classList.add('off');$('foot').style.display='none';
  $('card').innerHTML=`<div class="pros">🤠</div><h2>Gold Robbers!</h2>
- <p><b>Every 15 levels</b> an outlaw gang comes for your gold!</p>
- <p><b>Raid #${RAID_N}:</b> robbers are getting bolder!</p>
- <p class="note" style="margin-top:0">${RAID.blurb}</p>
- <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts! Out of corks? Hit <b>RELOAD</b>.<br>⭐ Stop robbers and <b>tap the glowing upgrade</b>: Double Six-Shooters, Cork Shotgun, then Double Shotguns!<br>💪 <b>Tough</b> guys: 2 hits or 1 shotgun blast. <b>Sneaks</b> weave in from odd angles. <b>Brutes</b>: 3 hits. <b>Boss</b>: 4 hits or 2 blasts.<br>🌊 <b>${WAVES.length} waves</b> with breaks to reload — watch for <b>Wave X of ${WAVES.length}</b>. ↔️ Drag along the bottom to move.</div>
+ <p><b>Every 15 levels</b> an outlaw gang comes for your gold! <b>${RAID.intro}</b> ${RAID.blurb}</p>
+ <div class="how">👆 <b>Tap robbers</b> to fire corks. Aim counts! Out of corks? Hit <b>RELOAD</b>.<br>⭐ Stop robbers and <b>tap the glowing upgrade</b>: Double Six-Shooters, Cork Shotgun, then Double Shotguns!<br>🧨 Robbers may drop <b>dynamite</b> (picks itself up, hold 5). <b>Tap Dynamite</b> to throw a blast — you can still shoot!<br>💪 <b>Tough</b> guys: 2 hits or 1 shotgun blast. <b>Sneaks</b> weave in from odd angles. <b>Brutes</b>: 3 hits. <b>Boss</b>: 4 hits or 2 blasts.<br>🌊 <b>${WAVES.length} waves</b> with breaks to reload — watch for <b>Wave X of ${WAVES.length}</b>. ↔️ Drag along the bottom to move.</div>
  <div class="row"><span>Gold you dug</span><b>${START_OZ.toLocaleString()} oz</b></div>
  <div class="row"><span>Most they can take (10%)</span><b>${CAP} oz</b></div>
  <p class="note">🔒 Robbers can't touch gold you bought${BOUGHT_OZ?` (your ${BOUGHT_OZ} oz is safe)`:''}. No purchases here.</p>
@@ -189,7 +197,7 @@ function intro(){
  $('ov').classList.add('on');$('go').onclick=()=>{audioInit();if(AC&&AC.state==='suspended')AC.resume();['smokes','win1','hoser','close1','strike'].forEach(vload);SFX.click();startDefend()};
  $('skip').onclick=()=>{SFX.click();skipGame()};
 }
-function startDefend(){G=fresh();G.phase='defend';G.queue=[];$('ov').classList.remove('on');$('ctl').classList.remove('off');size();drawIcons();G.me.x=W/2;$('phase').textContent='🛡 Wave 1 of '+WAVES.length;setHud();updUI(true);waveBanner(0,true);voice('smokes')}
+function startDefend(){G=fresh();G.phase='defend';G.queue=[];$('ov').classList.remove('on');$('ctl').classList.remove('off');$('foot').style.display='';size();drawIcons();G.me.x=W/2;$('phase').textContent='🛡 Wave 1 of '+WAVES.length;setHud();updUI(true);waveBanner(0,true);voice('smokes')}
 
 // ---------- robbers ----------
 const COATS=[['#6b4423','#4a2e16'],['#4a4a52','#2e2e34'],['#7a5a32','#54391c'],['#3a4a3a','#253025']];
@@ -222,7 +230,7 @@ function hitRobber(r,dmg,x,y,countHit=true){
  float(r.x,r.y-95*r.scale,['Yikes!','My hat!','Skedaddle!','Aw shucks!','Run for it!','Yeeouch!'][(Math.random()*6)|0],'#fff');
  const ang=Math.atan2(r.y-p.y,r.x-p.x);r.vx=Math.cos(ang)*280;r.vy=Math.min(-80,Math.sin(ang)*280);r.face=r.vx>0?1:-1;
  if(r.type==='boss'){G.bossDone=true;call('Boss down!');voice('strike');coinBurst(r.x,r.y-40,14)}
- setHud();maybeDrop(r);return true}
+ setHud();maybeDrop(r);maybeDropDyn(r);return true}
 function hatFly(r){G.hats.push({x:r.x,y:r.y-72*r.scale,vx:(Math.random()-.5)*160,vy:-260,rot:0,vr:(Math.random()<.5?-1:1)*9,s:r.scale,col:r.type==='boss'?'#141414':'#3b2a1a',life:1.4})}
 function puff(x,y,s=1){for(let i=0;i<6;i++)G.puffs.push({x:x+(Math.random()-.5)*14*s,y:y+(Math.random()-.5)*14*s,r:5*s+Math.random()*5*s,vr:40*s,life:.5})}
 function coinBurst(x,y,n){for(let i=0;i<n;i++)G.fx.push({x,y,coin:1,vx:(Math.random()-.5)*300,vy:-200-Math.random()*200,life:1})}
@@ -269,6 +277,61 @@ function collectPickup(q){G.pickups=G.pickups.filter(x=>x!==q);const k=q.k,w=WDE
  SFX.unlock();puff(q.x,q.y,1.4);coinBurst(q.x,q.y,10);toast('⭐ Got the '+w.name+'!');
  if(k==='dbl'){switchTo('dbl');bub('Yeehaw! Double the corks!',1600)}else if(k==='sg')bub('Tap Shotgun below. Great for tough guys!',2200);else{if(G.cur==='sg')switchTo('dsg');bub('Double Shotguns! 8 corks a blast!',2200)}
  const b=document.querySelector(`.wp[data-w="${k}"]`);b.classList.remove('new');void b.offsetWidth;b.classList.add('new');updUI(true)}
+// Dynamite: free drops from stopped robbers, auto-collected, thrown from the Dynamite button (shooting is unchanged).
+const DYN=GFFRaid.DYN||{cap:5,radius:110,dmg:4,cool:.55,fly:.4};
+function dynRad(){return DYN.radius*SC()}
+function maybeDropDyn(r){
+ if(G.phase!=='defend'&&G.phase!=='chase')return;
+ const held=G.dyn+(G.dynFlies?G.dynFlies.length:0)+(G.bombs?G.bombs.length:0);
+ if(held>=DYN.cap)return;
+ const ch=GFFRaid.dynChance?GFFRaid.dynChance(RAID_N,r.type):0;
+ if(Math.random()>=ch)return;
+ const x=r.x,y=r.y-50*r.scale;
+ G.dynFlies.push({x,y,sx:x,sy:y,t:0,life:.42});
+ puff(x,y,1.1);float(x,y-24,'🧨','#ffd34d',18)}
+function collectDyn(){
+ if(G.dyn>=DYN.cap)return;
+ G.dyn++;SFX.coin(3);
+ if(!G.dynSeen){G.dynSeen=1;toast('Robbers drop dynamite! Tap to throw!');bub('Robbers drop dynamite! Tap to throw!',2800)}
+ else toast('Dynamite! '+G.dyn+'/'+DYN.cap);
+ const b=$('dyn');b.classList.remove('new');void b.offsetWidth;b.classList.add('new');updUI(true)}
+function clusterAt(){
+ const list=G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run'&&(r.fade==null||r.fade>.3));
+ if(!list.length)return null;
+ const R=dynRad();
+ let best=null,bestN=-1;
+ for(const c of list){
+  let n=0,sx=0,sy=0;
+  for(const r of list){const y=r.y-45*r.scale;if(Math.hypot(r.x-c.x,y-(c.y-45*c.scale))<R){n++;sx+=r.x;sy+=y}}
+  if(n>bestN){bestN=n;best={x:sx/n,y:sy/n,n}}
+ }
+ return best}
+function throwDyn(tx,ty){
+ if(!live()||G.dyn<=0||G.dynCool>0)return false;
+ if(tx==null||ty==null){const c=clusterAt();if(!c){toast('No robbers to blast!');return false}tx=c.x;ty=c.y}
+ G.dyn--;G.dynCool=DYN.cool;
+ const sh={x:G.me.x,y:groundY()-70*SC()};
+ G.bombs.push({x:sh.x,y:sh.y,sx:sh.x,sy:sh.y,tx,ty,t:0,life:DYN.fly});
+ SFX.click();updUI(true);return true}
+function boomAt(x,y){
+ const R=dynRad(),dmg=DYN.dmg||4;
+ SFX.boom();
+ G.booms.push({x,y,t:0,life:.75,r:R});
+ G.flash.push({x,y,a:-Math.PI/2,n:14,spread:Math.PI*2,life:.32});
+ coinBurst(x,y,18);
+ for(let i=0;i<14;i++){const a=Math.random()*6.28,sp=90+Math.random()*240;G.fx.push({x,y,spark:1,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-50,life:.85+Math.random()*.35})}
+ G.fx.push({x,y:y-10,txt:'KA-BOOM!',col:'#ffe27a',sz:28,life:1});
+ puff(x,y,3.2);
+ const list=G.phase==='chase'?G.chasers.filter(c=>c.state==='flee'):G.robbers.filter(r=>r.state==='run');
+ for(const r of list){const ry=r.y-45*r.scale;if(Math.hypot(r.x-x,ry-y)<=R*1.05){if(G.phase==='chase')catchChaser(r,r.x,ry,true);else hitRobber(r,dmg,r.x,ry,true)}}
+}
+function dynBtnPos(){const br=$('dyn').getBoundingClientRect(),cr=cv.getBoundingClientRect();return{x:br.left+br.width/2-cr.left,y:Math.min(H-6,Math.max(H-10,br.top-cr.top))}}
+function drawStick(k,s,spark){k.save();k.rotate(-.5);k.fillStyle='#7a3a14';k.beginPath();k.roundRect?k.roundRect(-5*s,-16*s,10*s,28*s,3*s):k.rect(-5*s,-16*s,10*s,28*s);k.fill();
+ k.fillStyle='#d03020';k.beginPath();k.roundRect?k.roundRect(-4.2*s,-14*s,8.4*s,24*s,2.5*s):k.rect(-4.2*s,-14*s,8.4*s,24*s);k.fill();
+ k.fillStyle='#e8c070';k.beginPath();k.roundRect?k.roundRect(-4.2*s,-16*s,8.4*s,5*s,2*s):k.rect(-4.2*s,-16*s,8.4*s,5*s);k.fill();
+ k.strokeStyle='#3a2205';k.lineWidth=1.2*s;k.beginPath();k.moveTo(0,-16*s);k.quadraticCurveTo(8*s,-22*s,4*s,-28*s);k.stroke();
+ if(spark){k.fillStyle='#ffe27a';k.beginPath();const p=4*s;k.moveTo(4*s,-28*s-p);k.lineTo(4*s+p*.4,-28*s);k.lineTo(4*s,-28*s+p);k.lineTo(4*s-p*.4,-28*s);k.closePath();k.fill();k.fillStyle='#fff';k.beginPath();k.arc(4*s,-28*s,1.6*s,0,7);k.fill()}
+ k.restore()}
 let toastTO;function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toastTO);toastTO=setTimeout(()=>e.classList.remove('on'),2200)}
 function pickupAt(x,y){const R=34*SC();return G.pickups.find(q=>q.t>.35&&Math.hypot(q.x-x,q.y-y)<R)} // short grace so a quick second shot at the same robber doesn't grab it by accident
 function drawPickups(t){for(const q of G.pickups){const left=q.life-q.t;let a=1;if(left<2)a=Math.sin(q.t*22)>0?1:.25;if(q.t<.3)a*=q.t/.3;
@@ -298,6 +361,18 @@ cv.addEventListener('pointermove',e=>{if(drag)G.me.tx=Math.max(60,Math.min(W-60,
 ['pointerup','pointercancel','pointerleave'].forEach(n=>cv.addEventListener(n,()=>{drag=false}));
 $('rel').addEventListener('pointerdown',e=>{e.preventDefault();startReload()});
 document.querySelectorAll('.wp').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();if(live())switchTo(b.dataset.w)}));
+let dynDrag=false,dynFrom=null,dynPid=null;
+function dynPt(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+$('dyn').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(!live()||G.dyn<=0||G.dynCool>0)return;
+ dynDrag=true;dynFrom={x:e.clientX,y:e.clientY};dynPid=e.pointerId;G.dynAim=null;$('dyn').classList.add('aiming');try{$('dyn').setPointerCapture(e.pointerId)}catch(err){}});
+function dynMove(e){if(!dynDrag||(dynPid!=null&&e.pointerId!==dynPid))return;const p=dynPt(e),cr=cv.getBoundingClientRect();
+ if(e.clientY>=cr.top&&e.clientY<=cr.bottom)G.dynAim=p;else G.dynAim=null}
+function dynEnd(e){if(!dynDrag||(e&&dynPid!=null&&e.pointerId!==dynPid))return;dynDrag=false;$('dyn').classList.remove('aiming');
+ const p=e?dynPt(e):null;const dragged=!!(G.dynAim&&e&&dynFrom&&Math.hypot(e.clientX-dynFrom.x,e.clientY-dynFrom.y)>22);
+ if(dragged)throwDyn(p.x,p.y);else throwDyn(null,null);G.dynAim=null;dynPid=null;dynFrom=null}
+$('dyn').addEventListener('pointermove',dynMove);
+['pointerup','pointercancel'].forEach(n=>$('dyn').addEventListener(n,dynEnd));
+addEventListener('pointermove',dynMove);addEventListener('pointerup',dynEnd);addEventListener('pointercancel',dynEnd);
 
 // ---------- phases ----------
 function startChase(){
@@ -414,7 +489,8 @@ function gunIcon(k,type,w,h){k.save();k.translate(w/2,h/2);
  else if(type==='dbl'){k.save();k.scale(h/20,h/20);k.translate(-13,-3.5);gunSix(k);k.restore();k.save();k.scale(h/20,h/20);k.translate(-3,4);gunSix(k);k.restore()}
  else if(type==='sg'){k.scale(w/64,w/64);k.translate(-10,0);gunShotgun(k)}
  else{k.save();k.scale(w/76,w/76);k.translate(-12,-5);gunShotgun(k);k.restore();k.save();k.scale(w/76,w/76);k.translate(-6,6);gunShotgun(k);k.restore()}k.restore()}
-function drawIcons(){document.querySelectorAll('.wp canvas').forEach(c=>{const k=c.getContext('2d');k.setTransform(1,0,0,1,0,0);iconGun(k,c.parentNode.dataset.w,c.width,c.height)})}
+function drawIcons(){document.querySelectorAll('.wp canvas').forEach(c=>{const k=c.getContext('2d');k.setTransform(1,0,0,1,0,0);iconGun(k,c.parentNode.dataset.w,c.width,c.height)});
+ const d=$('dyn').querySelector('canvas');if(d){const k=d.getContext('2d');k.setTransform(1,0,0,1,0,0);k.clearRect(0,0,d.width,d.height);k.save();k.translate(d.width/2,d.height*.62);k.scale(d.height/42,d.height/42);drawStick(k,1.15,true);k.restore()}}
 // you: the prospector-sheriff
 function drawMe(t){const m=G.me,s=SC(),gy=groundY();const walking=Math.abs(m.walk)>.5,step=walking?Math.sin(t/70):0;
  cx.save();cx.translate(m.x,gy);cx.scale(s,s);
@@ -440,7 +516,9 @@ function drawCork(c){if(c.pellet){if(c.px!=null){cx.strokeStyle='#fff3d055';cx.l
 // ---------- bottom controls ----------
 let uiKey='';
 function updUI(force){const w=WDEF[G.cur],st=G.wpn[G.cur];
- const key=[G.cur,st.ammo,G.rl?1:0,G.rl?Math.round(G.rl.t*10):0,G.wpn.dbl.unl,G.wpn.sg.unl,G.wpn.dsg.unl,G.pickups.length,G.wpn.six.ammo,G.wpn.dbl.ammo,G.wpn.sg.ammo,G.wpn.dsg.ammo,G.phase].join();if(!force&&key===uiKey)return;uiKey=key;
+ const key=[G.cur,st.ammo,G.rl?1:0,G.rl?Math.round(G.rl.t*10):0,G.wpn.dbl.unl,G.wpn.sg.unl,G.wpn.dsg.unl,G.pickups.length,G.wpn.six.ammo,G.wpn.dbl.ammo,G.wpn.sg.ammo,G.wpn.dsg.ammo,G.phase,G.dyn,G.dynCool>0?1:0].join();if(!force&&key===uiKey)return;uiKey=key;
+ const db=$('dyn'),ready=G.dyn>0&&G.dynCool<=0&&(G.phase==='defend'||G.phase==='chase');
+ db.classList.toggle('ready',ready);db.classList.toggle('empty',G.dyn<=0);$('dynN').textContent=G.dyn;
  document.querySelectorAll('.wp').forEach(b=>{const k=b.dataset.w,s=G.wpn[k],am=b.querySelector('.am');b.classList.toggle('on',k===G.cur);b.classList.toggle('lock',!s.unl);
   if(!s.unl){am.textContent=G.pickups.some(q=>q.k===k)?'✨ Tap it!':'🔒 '+UNLOCK[k].label;am.classList.add('lk')}else{am.innerHTML=WDEF[k].short+'<br><b style="font-size:14px">'+s.ammo+'/'+WDEF[k].mag+'</b>';am.classList.remove('lk')}});
  const rel=$('rel'),livex=G.phase==='defend'||G.phase==='chase';
@@ -480,6 +558,15 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
    else if(c.state==='scared'){c.x+=c.vx*dt;c.y+=c.vy*dt}}
   if(G.t<=0||alive===0){G.phase='pause';const lost=G.stolen-G.recovered;call(lost===0?'Got it all back!':G.recovered?'+'+G.recovered+' oz back!':'They got away!');setTimeout(endGame,1400)}}
  if(!G.paused&&G.phase!=='done')updPickups(dt);
+ if(!G.paused&&G.phase!=='done'){
+  G.dynCool=Math.max(0,(G.dynCool||0)-dt);
+  const tgt=dynBtnPos();
+  for(const f of (G.dynFlies||[])){f.t+=dt;const k=Math.min(1,f.t/f.life),e=k*k*(3-2*k);f.x=f.sx+(tgt.x-f.sx)*e;f.y=f.sy+(tgt.y-f.sy)*e-Math.sin(k*Math.PI)*80}
+  const just=(G.dynFlies||[]).filter(f=>f.t>=f.life);G.dynFlies=(G.dynFlies||[]).filter(f=>f.t<f.life);just.forEach(()=>collectDyn());
+  for(const b of (G.bombs||[])){b.t+=dt;const k=Math.min(1,b.t/b.life);b.x=b.sx+(b.tx-b.sx)*k;b.y=b.sy+(b.ty-b.sy)*k-Math.sin(k*Math.PI)*90;if(k>=1){b.dead=1;boomAt(b.tx,b.ty)}}
+  G.bombs=(G.bombs||[]).filter(b=>!b.dead);
+  for(const o of (G.booms||[]))o.t+=dt;G.booms=(G.booms||[]).filter(o=>o.t<o.life);
+ }
  // corks
  if(!G.paused)for(const c of G.corks){c.life-=dt;c.rot+=dt*20;const tg=c.seek;
   if(tg&&(tg.state==='run'||tg.state==='flee')){const ty=tg.y-45*tg.scale,want=Math.atan2(ty-c.y,tg.x-c.x);let df=want-c.a;while(df>Math.PI)df-=2*Math.PI;while(df<-Math.PI)df+=2*Math.PI;const mx=c.turn*dt;c.a+=Math.max(-mx,Math.min(mx,df))}
@@ -500,6 +587,14 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
  for(const h of G.hats){if(!G.paused){h.vy+=600*dt;h.x+=h.vx*dt;h.y+=h.vy*dt;h.rot+=h.vr*dt;h.life-=dt}cx.save();cx.globalAlpha=Math.max(0,Math.min(1,h.life*2));cx.translate(h.x,h.y);cx.rotate(h.rot);cx.scale(h.s,h.s);cx.translate(0,76);drawHat(h.col,false);cx.restore()}
  G.hats=G.hats.filter(h=>h.life>0);
  for(const c of G.corks)drawCork(c);
+ for(const f of (G.dynFlies||[])){cx.save();cx.translate(f.x,f.y);drawStick(cx,SC()*1.15,true);cx.restore()}
+ for(const b of (G.bombs||[])){cx.save();cx.translate(b.x,b.y);cx.rotate(-.2+b.t*8);drawStick(cx,SC()*1.2,true);cx.restore()}
+ for(const o of (G.booms||[])){const k=Math.min(1,o.t/o.life),grow=o.r*(.35+k*1.15),a=Math.max(0,1-k);cx.save();
+  const g=cx.createRadialGradient(o.x,o.y,2,o.x,o.y,grow);g.addColorStop(0,'#fffce8');g.addColorStop(.18,'#ffe27a');g.addColorStop(.45,'#ff9a2acc');g.addColorStop(.75,'#ef4a2888');g.addColorStop(1,'#ffd34d00');
+  cx.globalAlpha=a;cx.fillStyle=g;cx.beginPath();cx.arc(o.x,o.y,grow,0,7);cx.fill();
+  cx.strokeStyle='#fff6c0';cx.lineWidth=5*SC()*(1-k);cx.beginPath();cx.arc(o.x,o.y,grow*.85,0,7);cx.stroke();
+  cx.globalAlpha=a*.35;cx.fillStyle='#ffe27a';cx.beginPath();cx.arc(o.x,o.y,grow*1.35,0,7);cx.fill();cx.restore()}
+ if(G.dynAim){const a=G.dynAim,R=dynRad();cx.save();cx.strokeStyle='#ffd34d';cx.lineWidth=2;cx.setLineDash([6,5]);cx.beginPath();cx.arc(a.x,a.y,R,0,7);cx.stroke();cx.setLineDash([]);cx.fillStyle='#ffd34d';cx.beginPath();cx.arc(a.x,a.y,5,0,7);cx.fill();cx.font='900 13px system-ui';cx.textAlign='center';cx.fillStyle='#fff6c0';cx.fillText('Throw!',a.x,a.y-R-8);cx.restore()}
  for(const f of G.flash){f.life-=dt;const k=Math.max(0,f.life/.18),L=40*SC()*(1.3-k*.3);cx.save();cx.globalAlpha=k;for(let i=0;i<f.n;i++){const aa=f.a+(i/(f.n-1)-.5)*f.spread;cx.fillStyle=i%2?'#ffd34d':'#ff9a2a';cx.beginPath();cx.moveTo(f.x,f.y);cx.lineTo(f.x+Math.cos(aa-.07)*L,f.y+Math.sin(aa-.07)*L);cx.lineTo(f.x+Math.cos(aa)*L*1.25,f.y+Math.sin(aa)*L*1.25);cx.lineTo(f.x+Math.cos(aa+.07)*L,f.y+Math.sin(aa+.07)*L);cx.fill()}cx.fillStyle='#fff6c0';cx.beginPath();cx.arc(f.x,f.y,7*SC(),0,7);cx.fill();cx.restore()}
  G.flash=G.flash.filter(f=>f.life>0);
  drawPickups(t);
@@ -507,6 +602,7 @@ function frame(now){const dt=Math.min(.05,(now-lt)/1000);lt=now;if(!W)size();con
  G.puffs=G.puffs.filter(q=>q.life>0);
  if(G.phase==='defend'&&G.el<3.5){cx.font='900 14px system-ui';cx.textAlign='right';cx.fillStyle='#ffd34d';cx.fillText('YOU ▶',G.me.x-26*SC(),groundY()-40*SC())}
  for(const f of G.fx){if(!G.paused)f.life-=dt*.9;if(f.coin){if(!G.paused){f.vy+=500*dt;f.x+=f.vx*dt;f.y+=f.vy*dt}cx.globalAlpha=Math.max(0,f.life);nugget(f.x,f.y,6,t,1);cx.globalAlpha=1;continue}
+  if(f.spark){if(!G.paused){f.vy+=280*dt;f.x+=f.vx*dt;f.y+=f.vy*dt}cx.globalAlpha=Math.max(0,f.life);cx.fillStyle='#ffe27a';cx.save();cx.translate(f.x,f.y);const sz=3.5+3*f.life;cx.beginPath();cx.moveTo(0,-sz*1.7);cx.lineTo(sz*.4,0);cx.lineTo(0,sz*1.7);cx.lineTo(-sz*.4,0);cx.closePath();cx.moveTo(-sz*1.7,0);cx.lineTo(0,-sz*.4);cx.lineTo(sz*1.7,0);cx.lineTo(0,sz*.4);cx.closePath();cx.fill();cx.fillStyle='#fff';cx.beginPath();cx.arc(0,0,1.4,0,7);cx.fill();cx.restore();cx.globalAlpha=1;continue}
   if(!G.paused)f.y-=40*dt;cx.globalAlpha=Math.max(0,f.life);cx.font=`900 ${f.sz}px system-ui`;cx.textAlign='center';cx.lineWidth=4;cx.strokeStyle='#3a2205';cx.strokeText(f.txt,f.x,f.y);cx.fillStyle=f.col;cx.fillText(f.txt,f.x,f.y);cx.globalAlpha=1}
  G.fx=G.fx.filter(f=>f.life>0);
  updUI();
