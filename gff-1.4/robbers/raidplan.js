@@ -121,12 +121,12 @@ function table(maxR){
 const DYN={cap:5,radius:110,dmg:4,cool:.55,fly:.4};
 function dynChance(r,type){
   r=Math.max(1,+r||1);
-  // Brutes (from raid 7) always drop a stick. Bosses always drop from raid 10 on.
-  if(type==='brute')return 1;
-  if(type==='boss')return r>=10?1:r>=7?0.6:0.25;
-  // Regulars: a rare surprise early (so raids 1-6 feel familiar), then a gentle late ramp.
-  const t=Math.max(0,Math.min(1,(r-6)/16));
-  return +(0.03+0.15*t*t).toFixed(3);
+  // 0 through raid 6 (L90), about 0.35 at raid 12 (L180), 1 at raid 18+ (L270).
+  // Late raids drop about half as much dynamite; early raids stay the same.
+  const late=r<=6?0:r<=12?(r-6)/6*0.35:Math.min(1,0.35+(r-12)/6*0.65);
+  if(type==='brute')return +(1-0.6*late).toFixed(3);
+  if(type==='boss')return r<7?0.25:r<10?0.6:+(1-0.5*late).toFixed(3);
+  return +(0.03+0.03*late).toFixed(3);
 }
 const api={raidNum,waveCount,levelOf,ease,speedMul,gapMul,wobbleMul,defendMax,TAKE,TYPE_HP,TYPE_SPD,BREAK_S,waveDef,blurb,introLine,buildWaves,counts,plan,table,DYN,dynChance};
 if(typeof module==='object'&&module.exports)module.exports=api;
