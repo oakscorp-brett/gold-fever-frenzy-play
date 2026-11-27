@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gold Fever Frenzy — Android preview</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:#0e1114;color:#e8e4da;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px 28px}
+  h1{font-size:16px;font-weight:700;margin:0 0 4px;color:#f3eee4}
+  .sub{font-size:12px;opacity:.75;margin:0 0 16px;text-align:center;max-width:420px;line-height:1.4}
+  .phone{position:relative;width:393px;max-width:calc(100vw - 24px);background:#1a1c1e;border-radius:36px;padding:12px 10px 16px;box-shadow:0 0 0 3px #3a3d42,0 0 0 6px #111,0 28px 60px #000a}
+  .status{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 20px;color:#fff;font-size:12px;font-weight:650;letter-spacing:.02em;user-select:none}
+  .status .r{display:flex;align-items:center;gap:7px}
+  .wifi{width:14px;height:10px;border:2px solid #fff;border-bottom:0;border-radius:8px 8px 0 0;position:relative}
+  .wifi:after{content:"";position:absolute;left:3px;bottom:-2px;width:4px;height:4px;background:#fff;border-radius:50%}
+  .batt{width:20px;height:10px;border:2px solid #fff;border-radius:3px;position:relative}
+  .batt:before{content:"";position:absolute;right:-4px;top:2px;width:2px;height:4px;background:#fff;border-radius:0 1px 1px 0}
+  .batt i{display:block;height:100%;width:78%;background:#c6f59a}
+  .screen{width:100%;aspect-ratio:390/844;background:#1b120a;border-radius:8px;overflow:hidden}
+  .screen iframe{width:100%;height:100%;border:0;display:block;background:#1b120a}
+  .pill{width:120px;height:5px;background:#c5c9ce;border-radius:4px;margin:9px auto 0}
+  .links{margin-top:16px;font-size:13px;text-align:center;line-height:1.8}
+  .links a{color:#ffd34d}
+</style>
+</head>
+<body>
+  <h1>Gold Fever Frenzy — Android preview</h1>
+  <p class="sub">This is a phone-sized look at the Android build in a web browser. It is not the Google Play listing, and it cannot take real payments. Same 1.3 game as iOS, including dynamite on the hardest raids.</p>
+  <div class="phone">
+    <div class="status"><span id="clk">12:00</span><span class="r"><span class="wifi"></span><span class="batt"><i></i></span></span></div>
+    <div class="screen"><iframe id="g" title="Gold Fever Frenzy" allow="autoplay"></iframe></div>
+    <div class="pill"></div>
+  </div>
+  <div class="links">
+    Try a raid:
+    <a href="?v=1&amp;robbers=15">level 15</a> ·
+    <a href="?v=1&amp;robbers=90">90</a> ·
+    <a href="?v=1&amp;robbers=180">180</a> ·
+    <a href="?v=1&amp;robbers=270">270</a><br>
+    <a href="?v=1&amp;at=181">Start at level 181 (coal)</a> ·
+    <a href="?v=1&amp;fresh=1">Start over</a>
+  </div>
+  <script>
+    (function(){
+      function tick(){var d=new Date();var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Denver',hour:'numeric',minute:'2-digit',hour12:true}).format(d);document.getElementById('clk').textContent=p.replace(/ ?[AP]M/,'');}
+      tick();setInterval(tick,15000);
+      var q=location.search||'?v=1';
+      document.getElementById('g').src='game.html'+q;
+    })();
+  </script>
+</body>
+</html>
